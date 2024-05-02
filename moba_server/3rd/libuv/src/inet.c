@@ -17,7 +17,12 @@
 
 #include <stdio.h>
 #include <string.h>
-#include <stdint.h>
+
+#if defined(_MSC_VER) && _MSC_VER < 1600
+# include "stdint-msvc2008.h"
+#else
+# include <stdint.h>
+#endif
 
 #include "uv.h"
 #include "uv-common.h"
@@ -54,7 +59,8 @@ static int inet_ntop4(const unsigned char *src, char *dst, size_t size) {
   if (l <= 0 || (size_t) l >= size) {
     return UV_ENOSPC;
   }
-  uv__strscpy(dst, tmp, size);
+  strncpy(dst, tmp, size);
+  dst[size - 1] = '\0';
   return 0;
 }
 
@@ -130,15 +136,20 @@ static int inet_ntop6(const unsigned char *src, char *dst, size_t size) {
       tp += strlen(tp);
       break;
     }
-    tp += snprintf(tp, sizeof tmp - (tp - tmp), "%x", words[i]);
+    tp += sprintf(tp, "%x", words[i]);
   }
   /* Was it a trailing run of 0x00's? */
   if (best.base != -1 && (best.base + best.len) == ARRAY_SIZE(words))
     *tp++ = ':';
   *tp++ = '\0';
-  if ((size_t) (tp - tmp) > size)
+
+  /*
+   * Check for overflow, copy, and we're done.
+   */
+  if ((size_t)(tp - tmp) > size) {
     return UV_ENOSPC;
-  uv__strscpy(dst, tmp, size);
+  }
+  strcpy(dst, tmp);
   return 0;
 }
 

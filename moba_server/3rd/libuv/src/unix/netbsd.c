@@ -27,11 +27,14 @@
 
 #include <kvm.h>
 #include <paths.h>
+#include <ifaddrs.h>
 #include <unistd.h>
 #include <time.h>
 #include <stdlib.h>
 #include <fcntl.h>
 
+#include <net/if.h>
+#include <net/if_dl.h>
 #include <sys/resource.h>
 #include <sys/types.h>
 #include <sys/sysctl.h>
@@ -39,6 +42,11 @@
 
 #include <unistd.h>
 #include <time.h>
+
+#undef NANOSEC
+#define NANOSEC ((uint64_t) 1e9)
+
+static char *process_title;
 
 
 int uv__platform_loop_init(uv_loop_t* loop) {
@@ -50,12 +58,19 @@ void uv__platform_loop_delete(uv_loop_t* loop) {
 }
 
 
+uint64_t uv__hrtime(uv_clocktype_t type) {
+  struct timespec ts;
+  clock_gettime(CLOCK_MONOTONIC, &ts);
+  return (((uint64_t) ts.tv_sec) * NANOSEC + ts.tv_nsec);
+}
+
+
 void uv_loadavg(double avg[3]) {
   struct loadavg info;
   size_t size = sizeof(info);
   int which[] = {CTL_VM, VM_LOADAVG};
 
-  if (sysctl(which, ARRAY_SIZE(which), &info, &size, NULL, 0) == -1) return;
+  if (sysctl(which, 2, &info, &size, NULL, 0) == -1) return;
 
   avg[0] = (double) info.ldavg[0] / info.fscale;
   avg[1] = (double) info.ldavg[1] / info.fscale;
@@ -64,33 +79,22 @@ void uv_loadavg(double avg[3]) {
 
 
 int uv_exepath(char* buffer, size_t* size) {
-  /* Intermediate buffer, retrieving partial path name does not work
-   * As of NetBSD-8(beta), vnode->path translator does not handle files
-   * with longer names than 31 characters.
-   */
-  char int_buf[PATH_MAX];
-  size_t int_size;
   int mib[4];
+  size_t cb;
+  pid_t mypid;
 
   if (buffer == NULL || size == NULL || *size == 0)
-    return UV_EINVAL;
+    return -EINVAL;
 
+  mypid = getpid();
   mib[0] = CTL_KERN;
   mib[1] = KERN_PROC_ARGS;
-  mib[2] = -1;
-  mib[3] = KERN_PROC_PATHNAME;
-  int_size = ARRAY_SIZE(int_buf);
+  mib[2] = mypid;
+  mib[3] = KERN_PROC_ARGV;
 
-  if (sysctl(mib, 4, int_buf, &int_size, NULL, 0))
-    return UV__ERR(errno);
-
-  /* Copy string from the intermediate buffer to outer one with appropriate
-   * length.
-   */
-  /* TODO(bnoordhuis) Check uv__strscpy() return value. */
-  uv__strscpy(buffer, int_buf, *size);
-
-  /* Set new size. */
+  cb = *size;
+  if (sysctl(mib, 4, buffer, &cb, NULL, 0))
+    return -errno;
   *size = strlen(buffer);
 
   return 0;
@@ -102,8 +106,8 @@ uint64_t uv_get_free_memory(void) {
   size_t size = sizeof(info);
   int which[] = {CTL_VM, VM_UVMEXP};
 
-  if (sysctl(which, ARRAY_SIZE(which), &info, &size, NULL, 0))
-    return 0;
+  if (sysctl(which, 2, &info, &size, NULL, 0))
+    return -errno;
 
   return (uint64_t) info.free * sysconf(_SC_PAGESIZE);
 }
@@ -119,20 +123,39 @@ uint64_t uv_get_total_memory(void) {
 #endif
   size_t size = sizeof(info);
 
-  if (sysctl(which, ARRAY_SIZE(which), &info, &size, NULL, 0))
-    return 0;
+  if (sysctl(which, 2, &info, &size, NULL, 0))
+    return -errno;
 
   return (uint64_t) info;
 }
 
 
-uint64_t uv_get_constrained_memory(void) {
-  return 0;  /* Memory constraints are unknown. */
+char** uv_setup_args(int argc, char** argv) {
+  process_title = argc ? uv__strdup(argv[0]) : NULL;
+  return argv;
 }
 
 
-uint64_t uv_get_available_memory(void) {
-  return uv_get_free_memory();
+int uv_set_process_title(const char* title) {
+  if (process_title) uv__free(process_title);
+
+  process_title = uv__strdup(title);
+  setproctitle("%s", title);
+
+  return 0;
+}
+
+
+int uv_get_process_title(char* buffer, size_t size) {
+  if (process_title) {
+    strncpy(buffer, process_title, size);
+  } else {
+    if (size > 0) {
+      buffer[0] = '\0';
+    }
+  }
+
+  return 0;
 }
 
 
@@ -162,7 +185,7 @@ int uv_resident_set_memory(size_t* rss) {
 
 error:
   if (kd) kvm_close(kd);
-  return UV_EPERM;
+  return -EPERM;
 }
 
 
@@ -172,8 +195,8 @@ int uv_uptime(double* uptime) {
   size_t size = sizeof(info);
   static int which[] = {CTL_KERN, KERN_BOOTTIME};
 
-  if (sysctl(which, ARRAY_SIZE(which), &info, &size, NULL, 0))
-    return UV__ERR(errno);
+  if (sysctl(which, 2, &info, &size, NULL, 0))
+    return -errno;
 
   now = time(NULL);
 
@@ -197,12 +220,12 @@ int uv_cpu_info(uv_cpu_info_t** cpu_infos, int* count) {
   size = sizeof(model);
   if (sysctlbyname("machdep.cpu_brand", &model, &size, NULL, 0) &&
       sysctlbyname("hw.model", &model, &size, NULL, 0)) {
-    return UV__ERR(errno);
+    return -errno;
   }
 
   size = sizeof(numcpus);
   if (sysctlbyname("hw.ncpu", &numcpus, &size, NULL, 0))
-    return UV__ERR(errno);
+    return -errno;
   *count = numcpus;
 
   /* Only i386 and amd64 have machdep.tsc_freq */
@@ -213,16 +236,16 @@ int uv_cpu_info(uv_cpu_info_t** cpu_infos, int* count) {
   size = numcpus * CPUSTATES * sizeof(*cp_times);
   cp_times = uv__malloc(size);
   if (cp_times == NULL)
-    return UV_ENOMEM;
+    return -ENOMEM;
 
   if (sysctlbyname("kern.cp_time", cp_times, &size, NULL, 0))
-    return UV__ERR(errno);
+    return -errno;
 
   *cpu_infos = uv__malloc(numcpus * sizeof(**cpu_infos));
   if (!(*cpu_infos)) {
     uv__free(cp_times);
     uv__free(*cpu_infos);
-    return UV_ENOMEM;
+    return -ENOMEM;
   }
 
   for (i = 0; i < numcpus; i++) {
@@ -240,25 +263,108 @@ int uv_cpu_info(uv_cpu_info_t** cpu_infos, int* count) {
   return 0;
 }
 
-int uv__random_sysctl(void* buf, size_t len) {
-  static int name[] = {CTL_KERN, KERN_ARND};
-  size_t count, req;
-  unsigned char* p;
 
-  p = buf;
-  while (len) {
-    req = len < 32 ? len : 32;
-    count = req;
+void uv_free_cpu_info(uv_cpu_info_t* cpu_infos, int count) {
+  int i;
 
-    if (sysctl(name, ARRAY_SIZE(name), p, &count, NULL, 0) == -1)
-      return UV__ERR(errno);
-
-    if (count != req)
-      return UV_EIO;  /* Can't happen. */
-
-    p += count;
-    len -= count;
+  for (i = 0; i < count; i++) {
+    uv__free(cpu_infos[i].model);
   }
 
+  uv__free(cpu_infos);
+}
+
+
+int uv_interface_addresses(uv_interface_address_t** addresses, int* count) {
+  struct ifaddrs *addrs, *ent;
+  uv_interface_address_t* address;
+  int i;
+  struct sockaddr_dl *sa_addr;
+
+  if (getifaddrs(&addrs))
+    return -errno;
+
+  *count = 0;
+
+  /* Count the number of interfaces */
+  for (ent = addrs; ent != NULL; ent = ent->ifa_next) {
+    if (!((ent->ifa_flags & IFF_UP) && (ent->ifa_flags & IFF_RUNNING)) ||
+        (ent->ifa_addr == NULL) ||
+        (ent->ifa_addr->sa_family != PF_INET)) {
+      continue;
+    }
+    (*count)++;
+  }
+
+  *addresses = uv__malloc(*count * sizeof(**addresses));
+
+  if (!(*addresses)) {
+    freeifaddrs(addrs);
+    return -ENOMEM;
+  }
+
+  address = *addresses;
+
+  for (ent = addrs; ent != NULL; ent = ent->ifa_next) {
+    if (!((ent->ifa_flags & IFF_UP) && (ent->ifa_flags & IFF_RUNNING)))
+      continue;
+
+    if (ent->ifa_addr == NULL)
+      continue;
+
+    if (ent->ifa_addr->sa_family != PF_INET)
+      continue;
+
+    address->name = uv__strdup(ent->ifa_name);
+
+    if (ent->ifa_addr->sa_family == AF_INET6) {
+      address->address.address6 = *((struct sockaddr_in6*) ent->ifa_addr);
+    } else {
+      address->address.address4 = *((struct sockaddr_in*) ent->ifa_addr);
+    }
+
+    if (ent->ifa_netmask->sa_family == AF_INET6) {
+      address->netmask.netmask6 = *((struct sockaddr_in6*) ent->ifa_netmask);
+    } else {
+      address->netmask.netmask4 = *((struct sockaddr_in*) ent->ifa_netmask);
+    }
+
+    address->is_internal = !!(ent->ifa_flags & IFF_LOOPBACK);
+
+    address++;
+  }
+
+  /* Fill in physical addresses for each interface */
+  for (ent = addrs; ent != NULL; ent = ent->ifa_next) {
+    if (!((ent->ifa_flags & IFF_UP) && (ent->ifa_flags & IFF_RUNNING)) ||
+        (ent->ifa_addr == NULL) ||
+        (ent->ifa_addr->sa_family != AF_LINK)) {
+      continue;
+    }
+
+    address = *addresses;
+
+    for (i = 0; i < (*count); i++) {
+      if (strcmp(address->name, ent->ifa_name) == 0) {
+        sa_addr = (struct sockaddr_dl*)(ent->ifa_addr);
+        memcpy(address->phys_addr, LLADDR(sa_addr), sizeof(address->phys_addr));
+      }
+      address++;
+    }
+  }
+
+  freeifaddrs(addrs);
+
   return 0;
+}
+
+
+void uv_free_interface_addresses(uv_interface_address_t* addresses, int count) {
+  int i;
+
+  for (i = 0; i < count; i++) {
+    uv__free(addresses[i].name);
+  }
+
+  uv__free(addresses);
 }
