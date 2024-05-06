@@ -106,3 +106,8 @@ void netbus::start_tcp_server(int port) {
 void netbus::run() {
 	uv_run(uv_default_loop(), UV_RUN_DEFAULT);
 }
+
+//初始化的方法
+void netbus::init(){
+	init_session_allocer();
+}

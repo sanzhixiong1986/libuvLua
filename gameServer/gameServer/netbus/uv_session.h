@@ -17,9 +17,12 @@ public:
 	char c_address[32];		//地址的存储地址
 	int c_port;
 
-	uv_shutdown_t shutdown;	//关闭的应用
-	uv_write_t w_req;		//写的相关操作
-	uv_buf_t w_buf;			//写入数据的相关二进制
+	//2024.5.6修改对象的属性删除原来的属性，添加了两个新的属性
+	//_shutdown_t shutdown;	//关闭的应用
+	//_write_t w_req;		//写的相关操作
+	//_buf_t w_buf;			//写入数据的相关二进制
+	uv_shutdown_t shutdown;
+	bool is_shutdown;
 public:
 	char recv_buf[RECV_LEN];//获得数据的二进制buf
 	int recved;
@@ -37,5 +40,8 @@ public:
 	virtual void send_data(unsigned char* body, int len);
 	virtual const char* get_address(int* client_port);
 };
+
+//2024.5.6新添加一个初始化的方法
+void init_session_allocer();
 
 #endif
