@@ -28,6 +28,12 @@
     <Filter Include="3rd\libuv\src\win">
       <UniqueIdentifier>{8bca5190-47a5-45b6-b40b-18ffb2d69268}</UniqueIdentifier>
     </Filter>
+    <Filter Include="3rd\crypto">
+      <UniqueIdentifier>{31267a40-1a1a-4402-b72a-479e3ec743c5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="3rd\http_parser">
+      <UniqueIdentifier>{5047429c-5ef5-48ea-b63b-fb2c6eb813ee}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\apps\test\mainCpp.cpp">
@@ -132,6 +138,27 @@
     <ClCompile Include="..\netbus\uv_session.cpp">
       <Filter>netbus</Filter>
     </ClCompile>
+    <ClCompile Include="..\3rd\crypto\base64_decoder.c">
+      <Filter>3rd\crypto</Filter>
+    </ClCompile>
+    <ClCompile Include="..\3rd\crypto\base64_encoder.c">
+      <Filter>3rd\crypto</Filter>
+    </ClCompile>
+    <ClCompile Include="..\3rd\crypto\md5.c">
+      <Filter>3rd\crypto</Filter>
+    </ClCompile>
+    <ClCompile Include="..\3rd\crypto\sha1.c">
+      <Filter>3rd\crypto</Filter>
+    </ClCompile>
+    <ClCompile Include="..\3rd\http_parser\http_parser.c">
+      <Filter>3rd\http_parser</Filter>
+    </ClCompile>
+    <ClCompile Include="..\netbus\ws_protocol.cpp">
+      <Filter>netbus</Filter>
+    </ClCompile>
+    <ClCompile Include="..\utils\cache_alloc.c">
+      <Filter>utils</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\netbus\netbus.h">
@@ -216,6 +243,27 @@
       <Filter>netbus</Filter>
     </ClInclude>
     <ClInclude Include="..\netbus\uv_session.h">
+      <Filter>netbus</Filter>
+    </ClInclude>
+    <ClInclude Include="..\utils\cache_alloc.h">
+      <Filter>utils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\3rd\crypto\base64_decoder.h">
+      <Filter>3rd\crypto</Filter>
+    </ClInclude>
+    <ClInclude Include="..\3rd\crypto\base64_encoder.h">
+      <Filter>3rd\crypto</Filter>
+    </ClInclude>
+    <ClInclude Include="..\3rd\crypto\md5.h">
+      <Filter>3rd\crypto</Filter>
+    </ClInclude>
+    <ClInclude Include="..\3rd\crypto\sha1.h">
+      <Filter>3rd\crypto</Filter>
+    </ClInclude>
+    <ClInclude Include="..\3rd\http_parser\http_parser.h">
+      <Filter>3rd\http_parser</Filter>
+    </ClInclude>
+    <ClInclude Include="..\netbus\ws_protocol.h">
       <Filter>netbus</Filter>
     </ClInclude>
   </ItemGroup>
