@@ -20,7 +20,7 @@ struct cache_allocer{
 
 struct cache_allocer* create_cache_allocer(int capacity, int elem_size){
 	//创建需要的头节点
-	struct cache_allocer* allocer = (struct cache_allocer*)(sizeof(struct cache_allocer));
+	struct cache_allocer* allocer = malloc(sizeof(struct cache_allocer));
 	memset(allocer, 0, sizeof(struct cache_allocer));
 	//end
 
@@ -28,7 +28,7 @@ struct cache_allocer* create_cache_allocer(int capacity, int elem_size){
 	elem_size = (elem_size < sizeof(struct node)) ? sizeof(struct node) : elem_size;
 	allocer->capacity = capacity;
 	allocer->elem_size = elem_size;
-	allocer->cache_mem = (unsigned char*)(capacity * elem_size);
+	allocer->cache_mem = malloc(capacity * elem_size);
 	memset(allocer->cache_mem, 0, sizeof(capacity * elem_size));
 	//end
 
