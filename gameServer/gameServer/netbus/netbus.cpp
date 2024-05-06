@@ -102,6 +102,27 @@ void netbus::start_tcp_server(int port) {
 	listen->data = (void*)TCP_SOCKET;
 }
 
+//启动websocket
+void netbus::start_ws_server(int port){
+	printf("启动websocket\n");
+	uv_tcp_t* listen = (uv_tcp_t*)malloc(sizeof(uv_tcp_t));
+	memset(listen, 0, sizeof(uv_tcp_t));
+
+	uv_tcp_init(uv_default_loop(), listen);
+	struct sockaddr_in addr;
+	uv_ip4_addr("0.0.0.0", port, &addr);
+
+	int ret = uv_tcp_bind(listen, (const struct sockaddr*)&addr, 0);
+	if (ret != 0){
+		printf("bind error\n");
+		free(listen);
+		return;
+	}
+
+	uv_listen((uv_stream_t*)listen, SOMAXCONN, uv_connection);
+	listen->data = (void*)WS_SOCKET;
+}
+
 //启动uv默认循环的方法
 void netbus::run() {
 	uv_run(uv_default_loop(), UV_RUN_DEFAULT);
@@ -109,5 +130,6 @@ void netbus::run() {
 
 //初始化的方法
 void netbus::init(){
+	printf("初始化内存相关\n");
 	init_session_allocer();
 }
