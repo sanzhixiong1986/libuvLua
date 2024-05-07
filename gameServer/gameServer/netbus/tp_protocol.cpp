@@ -15,10 +15,10 @@ bool tp_protocol::read_header(unsigned char* data, int data_len, int* pkg_size, 
 	if (data_len < 2){
 		return false;
 	}
-
+	//读取包的大小
 	*pkg_size = (data[0] | (data[1] << 8));
 	*out_header_size = 2;
-
+	//end
 	return true;
 }
 

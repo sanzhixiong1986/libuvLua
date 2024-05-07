@@ -25,7 +25,7 @@ public:
 	bool is_shutdown;
 public:
 	char recv_buf[RECV_LEN];//获得数据的二进制buf
-	int recved;
+	int recved;				//当前的数据操作
 	int socket_type;		//socket的类型我现在只有一个类型json类型
 	//5.7添加
 	char* long_pkg;
