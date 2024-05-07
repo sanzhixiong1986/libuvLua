@@ -14,7 +14,7 @@ using namespace std;
 #include "ws_protocol.h"
 #include "../utils/cache_alloc.h"
 
-extern cache_allocer* wbuf_allocer = nullptr; //昨天出现了一个问题，导出的时候没有加上=nullprt就会报错
+extern cache_allocer* wbuf_allocer; //昨天出现了一个问题，导出的时候没有加上=nullprt就会报错
 
 static char* wb_migic = "258EAFA5-E914-47DA-95CA-C5AB0DC85B11";
 //base64(sha1(key+web_migic))生成

@@ -30,7 +30,7 @@ using namespace std;
 
 struct cache_allocer* session_allocer = NULL;
 struct cache_allocer* wr_allocer = NULL;//写和读的相关操作
-cache_allocer* wbuf_allocer_session = NULL;
+struct cache_allocer* wbuf_allocer = NULL;
 
 //5.6添加一个session初始化的方法
 void init_session_allocer(){
@@ -43,8 +43,8 @@ void init_session_allocer(){
 	}
 
 	//5.7
-	if (wbuf_allocer_session == NULL){
-		wbuf_allocer_session = create_cache_allocer(WBUF_CACHE_CAPCITY, CMD_CACHE_SIZE);
+	if (wbuf_allocer == NULL){
+		wbuf_allocer = create_cache_allocer(WBUF_CACHE_CAPCITY, CMD_CACHE_SIZE);
 	}
 	//end
 }

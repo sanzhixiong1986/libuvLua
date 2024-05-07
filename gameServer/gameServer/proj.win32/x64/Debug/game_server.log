@@ -1,10 +1,9 @@
-﻿生成启动时间为 2024/5/7 14:36:17。
+﻿生成启动时间为 2024/5/7 15:34:14。
      1>项目“C:\work\c\libuvLua\gameServer\gameServer\proj.win32\game_server.vcxproj”在节点 2 上(Build 个目标)。
      1>C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V120\Microsoft.CppBuild.targets(388,5): warning MSB8028: The intermediate directory (x64\Debug\) contains files shared from another project (game_server.vcxproj).  This can lead to incorrect clean and rebuild behavior.
      1>ClCompile:
-         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\x86_amd64\CL.exe /c /IC:\work\c\libuvLua\gameServer\gameServer\3rd\libuv\include /Zi /nologo /W3 /WX- /sdl- /Od /D _CRT_SECURE_NO_WARNINGS /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"x64\Debug\\" /Fd"x64\Debug\vc120.pdb" /Gd /TP /errorReport:prompt ..\netbus\netbus.cpp
-         netbus.cpp
-     1>..\netbus\netbus.cpp(118): warning C4244: “+=”: 从“ssize_t”转换到“int”，可能丢失数据
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\x86_amd64\CL.exe /c /IC:\work\c\libuvLua\gameServer\gameServer\3rd\libuv\include /Zi /nologo /W3 /WX- /sdl- /Od /D _CRT_SECURE_NO_WARNINGS /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"x64\Debug\\" /Fd"x64\Debug\vc120.pdb" /Gd /TP /errorReport:prompt ..\netbus\uv_session.cpp
+         uv_session.cpp
        Link:
          C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\x86_amd64\link.exe /ERRORREPORT:PROMPT /OUT:"C:\work\c\libuvLua\gameServer\gameServer\proj.win32\x64\Debug\gameServer.exe" /INCREMENTAL /NOLOGO Ws2_32.lib Userenv.lib Psapi.lib IPHlpApi.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:\work\c\libuvLua\gameServer\gameServer\proj.win32\x64\Debug\gameServer.pdb" /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\work\c\libuvLua\gameServer\gameServer\proj.win32\x64\Debug\gameServer.lib" /MACHINE:X64 x64\Debug\base64_decoder.obj
          x64\Debug\base64_encoder.obj
@@ -53,4 +52,4 @@
 
 生成成功。
 
-已用时间 00:00:00.86
+已用时间 00:00:00.82

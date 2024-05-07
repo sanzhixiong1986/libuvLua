@@ -153,13 +153,13 @@
     <ClCompile Include="..\3rd\http_parser\http_parser.c">
       <Filter>3rd\http_parser</Filter>
     </ClCompile>
-    <ClCompile Include="..\netbus\ws_protocol.cpp">
-      <Filter>netbus</Filter>
-    </ClCompile>
     <ClCompile Include="..\utils\cache_alloc.c">
       <Filter>utils</Filter>
     </ClCompile>
     <ClCompile Include="..\netbus\tp_protocol.cpp">
+      <Filter>netbus</Filter>
+    </ClCompile>
+    <ClCompile Include="..\netbus\ws_protocol.cpp">
       <Filter>netbus</Filter>
     </ClCompile>
   </ItemGroup>
