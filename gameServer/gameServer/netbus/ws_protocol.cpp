@@ -75,6 +75,8 @@ bool ws_protocol::ws_shake_hand(session* s, char* body, int len){
 	is_sec_key = 0;
 	has_sec_key = 0;
 	is_shaker_ended = 0;
+
+	printf("body=%s\n",body);
 	http_parser_execute(&p, &settings, body, len); //执行方法
 	
 	//判断数据的正确定

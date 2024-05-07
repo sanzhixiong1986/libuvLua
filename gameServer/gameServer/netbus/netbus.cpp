@@ -27,7 +27,35 @@ extern "C"{
 
 	//tcp接受数据得函数
 	static void on_recv_tcp_data(uv_session* s){
+		unsigned char* pkg_data = (unsigned char*)((s->long_pkg != NULL) ? s->long_pkg : s->recv_buf);
 
+		while (s->recved > 0)
+		{
+			int pkg_size = 0;
+			int head_size = 0;
+
+			if (!tp_protocol::read_header(pkg_data, s->recved, &pkg_size, &head_size)){
+				break;
+			}
+
+			if (s->recved < pkg_size){
+				break;
+			}
+
+			unsigned char* raw_data = pkg_data + head_size;
+			on_recv_client_cmd(s, raw_data, pkg_size - head_size);
+
+			if (s->recved > pkg_size){
+				memmove(pkg_data, pkg_data + pkg_size, s->recved - pkg_size);
+			}
+			s->recved -= pkg_size;
+
+			if (s->recved == 0 && s->long_pkg != NULL){
+				free(s->long_pkg);
+				s->long_pkg = NULL;
+				s->long_pkg_size = 0;
+			}
+		}
 	}
 
 	//ws得相关数据获取
@@ -129,6 +157,7 @@ extern "C"{
 		}
 		else{
 			//tcp
+			on_recv_tcp_data(s);
 		}
 
 		//end
