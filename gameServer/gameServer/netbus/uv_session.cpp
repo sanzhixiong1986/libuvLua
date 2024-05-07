@@ -14,13 +14,23 @@ using namespace std;
 //2024.5.6新添加的缓存记录
 #include "../utils/cache_alloc.h"
 
+//5.7新添加
+#include "ws_protocol.h"
+#include "tp_protocol.h"
+#define WBUF_CACHE_CAPCITY 1024
+#define CMD_CACHE_SIZE 1024
+//end
+
+//end
 //5.6
 #define SESSION_CACHE_CAPACITY 6000
 #define WQ_CACHE_CAPCITY 4096
 //end
 
+
 struct cache_allocer* session_allocer = NULL;
 struct cache_allocer* wr_allocer = NULL;//写和读的相关操作
+cache_allocer* wbuf_allocer_session = NULL;
 
 //5.6添加一个session初始化的方法
 void init_session_allocer(){
@@ -31,6 +41,12 @@ void init_session_allocer(){
 	if (wr_allocer == NULL){
 		wr_allocer = create_cache_allocer(WQ_CACHE_CAPCITY, sizeof(uv_write_t));
 	}
+
+	//5.7
+	if (wbuf_allocer_session == NULL){
+		wbuf_allocer_session = create_cache_allocer(WBUF_CACHE_CAPCITY, CMD_CACHE_SIZE);
+	}
+	//end
 }
 
 extern "C"{
@@ -93,6 +109,10 @@ void uv_session::init(){
 	this->recved = 0;
 	this->is_shutdown = false;
 	//end
+	//5.7
+	this->is_ws_shake = false;
+	this->long_pkg = NULL;
+	this->long_pkg_size = NULL;
 }
 
 //退出方法
@@ -124,8 +144,31 @@ void uv_session::send_data(unsigned char* body,int len){
 	uv_write_t* w_req = (uv_write_t*)cache_alloc(wr_allocer, sizeof(uv_write_t));
 	uv_buf_t w_buf;
 	//end
-	w_buf = uv_buf_init((char*)body, len);
-	uv_write(w_req, (uv_stream_t*)&this->tcp_handler, &w_buf, 1, after_write);
+	//w_buf = uv_buf_init((char*)body, len);
+	//uv_write(w_req, (uv_stream_t*)&this->tcp_handler, &w_buf, 1, after_write);
+	//5.7修改
+	if (this->socket_type == WS_SOCKET){
+		if (this->is_ws_shake){
+			int ws_pkg_len;
+			unsigned char* ws_pkg = ws_protocol::package_ws_send_data(body, len, &ws_pkg_len);
+			w_buf = uv_buf_init((char*)ws_pkg, ws_pkg_len);
+			uv_write(w_req, (uv_stream_t*)&this->tcp_handler, &w_buf, 1, after_write);
+		}
+		else{
+			//tcp得方式
+			w_buf = uv_buf_init((char*)body, len);
+			uv_write(w_req, (uv_stream_t*)&this->tcp_handler, &w_buf, 1, after_write);
+		}
+	}
+	else{
+		//tcp得方式
+		int tp_pkg_len;
+		unsigned char* tp_pkg = tp_protocol::package(body, len, &tp_pkg_len);
+		w_buf = uv_buf_init((char*)tp_pkg, tp_pkg_len);
+		uv_write(w_req, (uv_stream_t*)&this->tcp_handler, &w_buf, 1, after_write);
+		tp_protocol::relese_package(tp_pkg);
+	}
+	//end
 }
 
 

@@ -159,6 +159,9 @@
     <ClCompile Include="..\utils\cache_alloc.c">
       <Filter>utils</Filter>
     </ClCompile>
+    <ClCompile Include="..\netbus\tp_protocol.cpp">
+      <Filter>netbus</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\netbus\netbus.h">
@@ -264,6 +267,9 @@
       <Filter>3rd\http_parser</Filter>
     </ClInclude>
     <ClInclude Include="..\netbus\ws_protocol.h">
+      <Filter>netbus</Filter>
+    </ClInclude>
+    <ClInclude Include="..\netbus\tp_protocol.h">
       <Filter>netbus</Filter>
     </ClInclude>
   </ItemGroup>

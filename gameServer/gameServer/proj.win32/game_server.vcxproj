@@ -158,6 +158,7 @@
     <ClCompile Include="..\3rd\libuv\src\win\winsock.c" />
     <ClCompile Include="..\apps\test\mainCpp.cpp" />
     <ClCompile Include="..\netbus\netbus.cpp" />
+    <ClCompile Include="..\netbus\tp_protocol.cpp" />
     <ClCompile Include="..\netbus\uv_session.cpp" />
     <ClCompile Include="..\netbus\ws_protocol.cpp" />
     <ClCompile Include="..\utils\cache_alloc.c" />
@@ -195,6 +196,7 @@
     <ClInclude Include="..\3rd\libuv\src\win\winsock.h" />
     <ClInclude Include="..\netbus\netbus.h" />
     <ClInclude Include="..\netbus\session.h" />
+    <ClInclude Include="..\netbus\tp_protocol.h" />
     <ClInclude Include="..\netbus\uv_session.h" />
     <ClInclude Include="..\netbus\ws_protocol.h" />
     <ClInclude Include="..\utils\cache_alloc.h" />
