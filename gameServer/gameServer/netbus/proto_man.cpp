@@ -14,7 +14,7 @@ static int g_cmd_count = 0;
 
 //初始化
 void proto_man::init(int proto_type){
-
+	g_proto_type = proto_type;
 }
 
 //获得当前类型
@@ -27,6 +27,7 @@ void proto_man::register_pf_cmd_map(char** pf_map, int len){
 	len = (MAX_PF_MAP_SIZE - g_cmd_count) < len ? ((MAX_PF_MAP_SIZE - g_cmd_count)) : len;
 	for (int i = 0; i < len;i++)
 	{
+		//赋值数据到map里面，key为g_cmd_count
 		g_pf_map[g_cmd_count + i] = strdup(pf_map[i]);
 	}
 	g_cmd_count += len;
@@ -48,12 +49,71 @@ static google::protobuf::Message* create_message(const char* type_name){
 	return message;
 }
 
+/// <summary>
+/// 删除操作
+/// </summary>
+/// <param name="m"></param>
 static void release_message(google::protobuf::Message* m){
 	delete m;
 }
 
-// stype(2) stype(2) utag(4) body
-bool proto_man::decode_cmd_msg(unsigned char* cmd, int cmd_len, struct cmd_msg** ouy_msg){
+/// <summary>
+/// 对数据进行编码
+/// </summary>
+/// <param name="cmd">字符串</param>
+/// <param name="cmd_len">字符串长度</param>
+/// <param name="out_msg"></param>
+/// <returns></returns>
+bool proto_man::decode_cmd_msg(unsigned char* cmd, int cmd_len, struct cmd_msg** out_msg){
+	//数据操作
+	*out_msg = NULL;
+
+	if (cmd_len < CMD_HEADER) {
+		return false;
+	}
+
+	struct cmd_msg* msg = (struct cmd_msg*)malloc(sizeof(struct cmd_msg));
+	msg->stype = cmd[0] | (cmd[1] << 8);
+	msg->ctype = cmd[2] | (cmd[3] << 8);
+	msg->utag = cmd[4] | (cmd[5] << 8) | (cmd[6] << 16) | (cmd[7] << 24);
+
+	*out_msg = msg;
+	if (cmd_len == CMD_HEADER) {
+		return true;
+	}
+
+	//如果是json数据
+	if (g_proto_type == PROTO_JSON) {
+		int json_len = cmd_len - CMD_HEADER;
+		char* json_str = (char*)malloc(json_len + 1);
+		memcpy(json_str, cmd + CMD_HEADER, json_len);
+		json_str[json_len] = 0;
+
+		msg->body = (void*)json_str;
+	}
+	else {
+		if (msg->ctype < 0 || msg->ctype >= g_cmd_count || g_pf_map[msg->ctype] == NULL) {
+			free(msg);
+			*out_msg = NULL;
+			return false;
+		}
+
+		google::protobuf::Message* p_m = create_message(g_pf_map[msg->ctype]);
+		if (p_m == NULL) {
+			free(msg);
+			*out_msg = NULL;
+			return false;
+		}
+
+		if (!p_m->ParseFromArray(cmd + CMD_HEADER, cmd_len - CMD_HEADER)) {
+			free(msg);
+			*out_msg = NULL;
+			release_message(p_m);
+			return false;
+		}
+
+		msg->body = p_m;
+	}
 	return true;
 }
 
@@ -113,5 +173,3 @@ unsigned char* proto_man::encode_msg_to_raw(const struct cmd_msg* msg, int* out_
 void proto_man::msg_raw_free(unsigned char* raw){
 	free(raw);
 }
-
-
