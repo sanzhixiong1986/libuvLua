@@ -47,6 +47,7 @@ public:
 	virtual void close();
 	virtual void send_data(unsigned char* body, int len);
 	virtual const char* get_address(int* client_port);
+	virtual void send_msg(struct cmd_msg* msg); //5.9号添加的抽象方法
 };
 
 //2024.5.6新添加一个初始化的方法

@@ -15,6 +15,7 @@ using namespace std;
 #include "ws_protocol.h"
 #include "tp_protocol.h"
 #include "proto_man.h"
+#include "service_man.h"
 
 extern "C"{
 
@@ -23,17 +24,13 @@ extern "C"{
 		printf("client command !!!!\n");
 		//test
 		//websocket 发哦那个消息的 s->send_data(body, len);
-		/*struct cmd_msg* msg = NULL;
+		struct cmd_msg* msg = NULL;
 		if (proto_man::decode_cmd_msg(body, len, &msg)) {
-			unsigned char* encode_pkg = NULL;//无符号的字符串
-			int encode_len = 0;
-			encode_pkg = proto_man::encode_msg_to_raw(msg, &encode_len);
-			if (encode_pkg) {
-				s->send_data(encode_pkg, encode_len);
-				proto_man::msg_raw_free(encode_pkg);
+			if (!service_man::on_recv_cmd_msg((session*)s, msg)) {
+				s->close();
 			}
 			proto_man::cmd_msg_free(msg);
-		}*/
+		}
 		//end
 	}
 
@@ -258,5 +255,6 @@ void netbus::run() {
 //初始化的方法
 void netbus::init(){
 	printf("初始化内存相关\n");
+	service_man::init();
 	init_session_allocer();
 }
