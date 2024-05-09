@@ -34,6 +34,9 @@
     <Filter Include="3rd\http_parser">
       <UniqueIdentifier>{5047429c-5ef5-48ea-b63b-fb2c6eb813ee}</UniqueIdentifier>
     </Filter>
+    <Filter Include="apps\test\proto">
+      <UniqueIdentifier>{adc84807-f4a1-4677-b792-2e201874e8fc}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\apps\test\mainCpp.cpp">
@@ -162,6 +165,9 @@
     <ClCompile Include="..\netbus\ws_protocol.cpp">
       <Filter>netbus</Filter>
     </ClCompile>
+    <ClCompile Include="..\netbus\proto_man.cpp">
+      <Filter>netbus</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\netbus\netbus.h">
@@ -270,6 +276,9 @@
       <Filter>netbus</Filter>
     </ClInclude>
     <ClInclude Include="..\netbus\tp_protocol.h">
+      <Filter>netbus</Filter>
+    </ClInclude>
+    <ClInclude Include="..\netbus\proto_man.h">
       <Filter>netbus</Filter>
     </ClInclude>
   </ItemGroup>

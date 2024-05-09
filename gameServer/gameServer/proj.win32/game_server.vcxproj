@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project DefaultTargets="Build" ToolsVersion="12.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project DefaultTargets="Build" ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
       <Configuration>Debug</Configuration>
@@ -82,13 +82,15 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>false</SDLCheck>
-      <AdditionalIncludeDirectories>C:\work\c\libuvLua\gameServer\gameServer\3rd\libuv\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>C:\work\c\libuvLua\gameServer\gameServer\3rd\protobuf\src;C:\work\c\libuvLua\gameServer\gameServer\3rd\libuv\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;WIN32;_DEBUG;_CONSOLE;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <OutputFile>$(OutDir)$(TargetName)$(TargetExt)</OutputFile>
       <AdditionalDependencies>Ws2_32.lib;Userenv.lib;Psapi.lib;IPHlpApi.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>C:\work\c\libuvLua\gameServer\gameServer\proj.win32\protobuf;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -158,6 +160,7 @@
     <ClCompile Include="..\3rd\libuv\src\win\winsock.c" />
     <ClCompile Include="..\apps\test\mainCpp.cpp" />
     <ClCompile Include="..\netbus\netbus.cpp" />
+    <ClCompile Include="..\netbus\proto_man.cpp" />
     <ClCompile Include="..\netbus\tp_protocol.cpp" />
     <ClCompile Include="..\netbus\uv_session.cpp" />
     <ClCompile Include="..\netbus\ws_protocol.cpp" />
@@ -195,6 +198,7 @@
     <ClInclude Include="..\3rd\libuv\src\win\winapi.h" />
     <ClInclude Include="..\3rd\libuv\src\win\winsock.h" />
     <ClInclude Include="..\netbus\netbus.h" />
+    <ClInclude Include="..\netbus\proto_man.h" />
     <ClInclude Include="..\netbus\session.h" />
     <ClInclude Include="..\netbus\tp_protocol.h" />
     <ClInclude Include="..\netbus\uv_session.h" />
