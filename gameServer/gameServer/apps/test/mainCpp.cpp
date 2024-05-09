@@ -14,9 +14,34 @@ using namespace std;
 
 #include "proto/pf_cmd_map.h"
 
+#include "../../database/mysql_wrapper.h"
+
 static
 void on_logger_timer(void* udata) {
 	log_debug("on_logger_timer");
+}
+
+static void on_query_cb(const char* err, std::vector<std::vector<std::string>>* result) {
+	if (err) {
+		printf("err");
+		return;
+	}
+
+	printf("success");
+}
+
+static void on_open_cb(const char* err, void* context) {
+	if (err != NULL) {
+		printf("%s\n", err);
+		return;
+	}
+	printf("connect success\n");
+
+	mysql_wrapper::query(context, "select * from note", on_query_cb);
+}
+
+static void test_db() {
+	mysql_wrapper::connect("127.0.0.1", 3306, "games", "root", "sanzhixiong", on_open_cb);
 }
 
 
@@ -37,6 +62,8 @@ int main(int argc, char** argv){
 	log_debug("%s", out_buf);
 	schedule(on_logger_timer, NULL, 3000, -1);
 	*/
+
+	test_db();
 	netbus::instance()->init();
 	netbus::instance()->start_tcp_server(6080);
 	netbus::instance()->start_ws_server(8001);
