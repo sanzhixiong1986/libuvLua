@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="3rd">
+      <UniqueIdentifier>{4ef1f737-695f-4ca6-8e32-ed1083f67421}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="netbus">
+      <UniqueIdentifier>{f0d78218-ae2c-4e8d-8559-66e978010258}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="apps">
+      <UniqueIdentifier>{5c04b44a-a6fa-4a9b-a0e6-e1240836f767}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="apps\test">
+      <UniqueIdentifier>{c4780e62-e867-4707-bdaf-04521d3a8550}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="utils">
+      <UniqueIdentifier>{9c343d12-c51d-4d48-8f6d-2164a3dcfad9}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\apps\test\main.cpp">
+      <Filter>apps\test</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>

@@ -1,0 +1,1 @@
+C:\work\c\libuvLua\gameServer2019\mobaServer\build\x64\Debug\mobaServer.exe
