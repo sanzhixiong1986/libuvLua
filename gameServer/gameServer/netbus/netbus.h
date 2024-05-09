@@ -11,6 +11,7 @@ public:
 	//end
 	void start_tcp_server(int port);
 	void start_ws_server(int port);
+	void start_upd_server(int port);
 	void run();
 };
 
