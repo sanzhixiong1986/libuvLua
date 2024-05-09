@@ -155,7 +155,6 @@ void uv_session::send_data(unsigned char* body,int len){
 			uv_write(w_req, (uv_stream_t*)&this->tcp_handler, &w_buf, 1, after_write);
 		}
 		else{
-			//tcpµÃ·½Ê½
 			w_buf = uv_buf_init((char*)body, len);
 			uv_write(w_req, (uv_stream_t*)&this->tcp_handler, &w_buf, 1, after_write);
 		}

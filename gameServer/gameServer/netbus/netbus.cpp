@@ -22,7 +22,8 @@ extern "C"{
 	static void on_recv_client_cmd(uv_session* s, unsigned char* body, int len){
 		printf("client command !!!!\n");
 		//test
-		struct cmd_msg* msg = NULL;
+		//websocket 发哦那个消息的 s->send_data(body, len);
+		/*struct cmd_msg* msg = NULL;
 		if (proto_man::decode_cmd_msg(body, len, &msg)) {
 			unsigned char* encode_pkg = NULL;//无符号的字符串
 			int encode_len = 0;
@@ -32,7 +33,7 @@ extern "C"{
 				proto_man::msg_raw_free(encode_pkg);
 			}
 			proto_man::cmd_msg_free(msg);
-		}
+		}*/
 		//end
 	}
 
@@ -170,7 +171,6 @@ extern "C"{
 			//tcp
 			on_recv_tcp_data(s);
 		}
-
 		//end
 	}
 
