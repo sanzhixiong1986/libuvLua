@@ -38,10 +38,10 @@ static google::protobuf::Message* create_message(const char* type_name){
 	const google::protobuf::Descriptor* descriptor =
 		google::protobuf::DescriptorPool::generated_pool()->FindMessageTypeByName(type_name);
 
-	if (descriptor){
+	if (descriptor) {
 		const google::protobuf::Message* prototype =
 			google::protobuf::MessageFactory::generated_factory()->GetPrototype(descriptor);
-		if (prototype){
+		if (prototype) {
 			message = prototype->New();
 		}
 	}
@@ -91,14 +91,13 @@ unsigned char* proto_man::encode_msg_to_raw(const struct cmd_msg* msg, int* out_
 	}
 	else{
 		google::protobuf::Message* p_m = (google::protobuf::Message*)msg->body;
-		p_m->ByteSize();
-		/*int pf_len = 10;// p_m->ByteSize();
+		int pf_len = p_m->ByteSize();
 		raw_data = (unsigned char*)malloc(CMD_HEADER + pf_len);
 		if (!p_m->SerializePartialToArray(raw_data + CMD_HEADER, pf_len)) {
 			free(raw_data);
 			return NULL;
 		}
-		*out_len = (pf_len + CMD_HEADER);*/
+		*out_len = (pf_len + CMD_HEADER);
 	}
 
 	//数据的编写出来

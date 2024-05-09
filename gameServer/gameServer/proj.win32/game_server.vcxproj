@@ -27,26 +27,26 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v120</PlatformToolset>
+    <PlatformToolset>v142</PlatformToolset>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v120</PlatformToolset>
+    <PlatformToolset>v142</PlatformToolset>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v120</PlatformToolset>
+    <PlatformToolset>v142</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v120</PlatformToolset>
+    <PlatformToolset>v142</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
@@ -83,14 +83,14 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>false</SDLCheck>
       <AdditionalIncludeDirectories>C:\work\c\libuvLua\gameServer\gameServer\3rd\protobuf\src;C:\work\c\libuvLua\gameServer\gameServer\3rd\libuv\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;WIN32;_DEBUG;_CONSOLE;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;WIN32;_DEBUG;_CONSOLE;_LIB;PROTOBUF_USE_DLLS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <OutputFile>$(OutDir)$(TargetName)$(TargetExt)</OutputFile>
-      <AdditionalDependencies>Ws2_32.lib;Userenv.lib;Psapi.lib;IPHlpApi.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>C:\work\c\libuvLua\gameServer\gameServer\proj.win32\protobuf;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>Ws2_32.lib;Userenv.lib;Psapi.lib;IPHlpApi.lib;libprotobufd.lib;libprotocd.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>C:\work\c\libuvLua\gameServer\gameServer\proj.win32\lib\protobuf;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -159,6 +159,8 @@
     <ClCompile Include="..\3rd\libuv\src\win\winapi.c" />
     <ClCompile Include="..\3rd\libuv\src\win\winsock.c" />
     <ClCompile Include="..\apps\test\mainCpp.cpp" />
+    <ClCompile Include="..\apps\test\proto\game.pb.cc" />
+    <ClCompile Include="..\apps\test\proto\pf_cmd_map.cpp" />
     <ClCompile Include="..\netbus\netbus.cpp" />
     <ClCompile Include="..\netbus\proto_man.cpp" />
     <ClCompile Include="..\netbus\tp_protocol.cpp" />
@@ -197,6 +199,8 @@
     <ClInclude Include="..\3rd\libuv\src\win\stream-inl.h" />
     <ClInclude Include="..\3rd\libuv\src\win\winapi.h" />
     <ClInclude Include="..\3rd\libuv\src\win\winsock.h" />
+    <ClInclude Include="..\apps\test\proto\game.pb.h" />
+    <ClInclude Include="..\apps\test\proto\pf_cmd_map.h" />
     <ClInclude Include="..\netbus\netbus.h" />
     <ClInclude Include="..\netbus\proto_man.h" />
     <ClInclude Include="..\netbus\session.h" />
@@ -204,6 +208,9 @@
     <ClInclude Include="..\netbus\uv_session.h" />
     <ClInclude Include="..\netbus\ws_protocol.h" />
     <ClInclude Include="..\utils\cache_alloc.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\apps\test\proto\game.proto" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -168,6 +168,12 @@
     <ClCompile Include="..\netbus\proto_man.cpp">
       <Filter>netbus</Filter>
     </ClCompile>
+    <ClCompile Include="..\apps\test\proto\game.pb.cc">
+      <Filter>apps\test\proto</Filter>
+    </ClCompile>
+    <ClCompile Include="..\apps\test\proto\pf_cmd_map.cpp">
+      <Filter>apps\test\proto</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\netbus\netbus.h">
@@ -281,5 +287,16 @@
     <ClInclude Include="..\netbus\proto_man.h">
       <Filter>netbus</Filter>
     </ClInclude>
+    <ClInclude Include="..\apps\test\proto\game.pb.h">
+      <Filter>apps\test\proto</Filter>
+    </ClInclude>
+    <ClInclude Include="..\apps\test\proto\pf_cmd_map.h">
+      <Filter>apps\test\proto</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\apps\test\proto\game.proto">
+      <Filter>apps\test\proto</Filter>
+    </None>
   </ItemGroup>
 </Project>
