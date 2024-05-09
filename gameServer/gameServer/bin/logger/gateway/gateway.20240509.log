@@ -1,0 +1,50 @@
+20240509 16:00:57 DEBUG C:\work\c\libuvLua\gameServer\gameServer\apps\test\mainCpp.cpp:30  
+1715241657
+20240509 16:00:57 DEBUG C:\work\c\libuvLua\gameServer\gameServer\apps\test\mainCpp.cpp:31  
+1715184000
+20240509 16:00:57 DEBUG C:\work\c\libuvLua\gameServer\gameServer\apps\test\mainCpp.cpp:32  
+1517414400
+20240509 16:02:27 DEBUG C:\work\c\libuvLua\gameServer\gameServer\apps\test\mainCpp.cpp:30  
+1715241747
+20240509 16:02:27 DEBUG C:\work\c\libuvLua\gameServer\gameServer\apps\test\mainCpp.cpp:31  
+1715184000
+20240509 16:02:27 DEBUG C:\work\c\libuvLua\gameServer\gameServer\apps\test\mainCpp.cpp:32  
+1517414400
+20240509 16:02:27 DEBUG C:\work\c\libuvLua\gameServer\gameServer\apps\test\mainCpp.cpp:37  
+2024-05-08 00:00:00
+20240509 16:02:30 DEBUG C:\work\c\libuvLua\gameServer\gameServer\apps\test\mainCpp.cpp:19  
+on_logger_timer
+20240509 16:02:33 DEBUG C:\work\c\libuvLua\gameServer\gameServer\apps\test\mainCpp.cpp:19  
+on_logger_timer
+20240509 16:02:36 DEBUG C:\work\c\libuvLua\gameServer\gameServer\apps\test\mainCpp.cpp:19  
+on_logger_timer
+20240509 16:02:39 DEBUG C:\work\c\libuvLua\gameServer\gameServer\apps\test\mainCpp.cpp:19  
+on_logger_timer
+20240509 16:02:42 DEBUG C:\work\c\libuvLua\gameServer\gameServer\apps\test\mainCpp.cpp:19  
+on_logger_timer
+20240509 16:02:45 DEBUG C:\work\c\libuvLua\gameServer\gameServer\apps\test\mainCpp.cpp:19  
+on_logger_timer
+20240509 16:02:48 DEBUG C:\work\c\libuvLua\gameServer\gameServer\apps\test\mainCpp.cpp:19  
+on_logger_timer
+20240509 16:02:51 DEBUG C:\work\c\libuvLua\gameServer\gameServer\apps\test\mainCpp.cpp:19  
+on_logger_timer
+20240509 16:02:54 DEBUG C:\work\c\libuvLua\gameServer\gameServer\apps\test\mainCpp.cpp:19  
+on_logger_timer
+20240509 16:02:57 DEBUG C:\work\c\libuvLua\gameServer\gameServer\apps\test\mainCpp.cpp:19  
+on_logger_timer
+20240509 16:03:00 DEBUG C:\work\c\libuvLua\gameServer\gameServer\apps\test\mainCpp.cpp:19  
+on_logger_timer
+20240509 16:03:03 DEBUG C:\work\c\libuvLua\gameServer\gameServer\apps\test\mainCpp.cpp:19  
+on_logger_timer
+20240509 16:03:06 DEBUG C:\work\c\libuvLua\gameServer\gameServer\apps\test\mainCpp.cpp:19  
+on_logger_timer
+20240509 16:07:04 ERROR C:\work\c\libuvLua\gameServer\gameServer\apps\test\mainCpp.cpp:30  
+1715242024
+20240509 16:07:04 ERROR C:\work\c\libuvLua\gameServer\gameServer\apps\test\mainCpp.cpp:31  
+1715184000
+20240509 16:07:04 DEBUG C:\work\c\libuvLua\gameServer\gameServer\apps\test\mainCpp.cpp:32  
+1517414400
+20240509 16:07:04 DEBUG C:\work\c\libuvLua\gameServer\gameServer\apps\test\mainCpp.cpp:37  
+2024-05-08 00:00:00
+20240509 16:07:07 DEBUG C:\work\c\libuvLua\gameServer\gameServer\apps\test\mainCpp.cpp:19  
+on_logger_timer
