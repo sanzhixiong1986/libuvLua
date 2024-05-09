@@ -163,10 +163,16 @@
     <ClCompile Include="..\apps\test\proto\pf_cmd_map.cpp" />
     <ClCompile Include="..\netbus\netbus.cpp" />
     <ClCompile Include="..\netbus\proto_man.cpp" />
+    <ClCompile Include="..\netbus\service.cpp" />
+    <ClCompile Include="..\netbus\service_man.cpp" />
     <ClCompile Include="..\netbus\tp_protocol.cpp" />
+    <ClCompile Include="..\netbus\udp_session.cpp" />
     <ClCompile Include="..\netbus\uv_session.cpp" />
     <ClCompile Include="..\netbus\ws_protocol.cpp" />
     <ClCompile Include="..\utils\cache_alloc.c" />
+    <ClCompile Include="..\utils\logger.cpp" />
+    <ClCompile Include="..\utils\timestamp.c" />
+    <ClCompile Include="..\utils\time_list.c" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\3rd\crypto\base64_decoder.h" />
@@ -203,11 +209,17 @@
     <ClInclude Include="..\apps\test\proto\pf_cmd_map.h" />
     <ClInclude Include="..\netbus\netbus.h" />
     <ClInclude Include="..\netbus\proto_man.h" />
+    <ClInclude Include="..\netbus\service.h" />
+    <ClInclude Include="..\netbus\service_man.h" />
     <ClInclude Include="..\netbus\session.h" />
     <ClInclude Include="..\netbus\tp_protocol.h" />
+    <ClInclude Include="..\netbus\udp_session.h" />
     <ClInclude Include="..\netbus\uv_session.h" />
     <ClInclude Include="..\netbus\ws_protocol.h" />
     <ClInclude Include="..\utils\cache_alloc.h" />
+    <ClInclude Include="..\utils\logger.h" />
+    <ClInclude Include="..\utils\timestamp.h" />
+    <ClInclude Include="..\utils\time_list.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\apps\test\proto\game.proto" />

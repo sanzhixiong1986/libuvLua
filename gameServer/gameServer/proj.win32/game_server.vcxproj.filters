@@ -174,6 +174,24 @@
     <ClCompile Include="..\apps\test\proto\pf_cmd_map.cpp">
       <Filter>apps\test\proto</Filter>
     </ClCompile>
+    <ClCompile Include="..\netbus\service.cpp">
+      <Filter>netbus</Filter>
+    </ClCompile>
+    <ClCompile Include="..\netbus\service_man.cpp">
+      <Filter>netbus</Filter>
+    </ClCompile>
+    <ClCompile Include="..\utils\logger.cpp">
+      <Filter>utils</Filter>
+    </ClCompile>
+    <ClCompile Include="..\utils\time_list.c">
+      <Filter>utils</Filter>
+    </ClCompile>
+    <ClCompile Include="..\utils\timestamp.c">
+      <Filter>utils</Filter>
+    </ClCompile>
+    <ClCompile Include="..\netbus\udp_session.cpp">
+      <Filter>netbus</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\netbus\netbus.h">
@@ -292,6 +310,24 @@
     </ClInclude>
     <ClInclude Include="..\apps\test\proto\pf_cmd_map.h">
       <Filter>apps\test\proto</Filter>
+    </ClInclude>
+    <ClInclude Include="..\netbus\service.h">
+      <Filter>netbus</Filter>
+    </ClInclude>
+    <ClInclude Include="..\netbus\service_man.h">
+      <Filter>netbus</Filter>
+    </ClInclude>
+    <ClInclude Include="..\utils\logger.h">
+      <Filter>utils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\utils\time_list.h">
+      <Filter>utils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\utils\timestamp.h">
+      <Filter>utils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\netbus\udp_session.h">
+      <Filter>netbus</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
