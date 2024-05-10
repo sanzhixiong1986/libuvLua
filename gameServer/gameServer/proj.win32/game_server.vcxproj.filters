@@ -37,6 +37,9 @@
     <Filter Include="apps\test\proto">
       <UniqueIdentifier>{adc84807-f4a1-4677-b792-2e201874e8fc}</UniqueIdentifier>
     </Filter>
+    <Filter Include="database">
+      <UniqueIdentifier>{c8de9951-3206-4e22-a7ea-23f1f15d7271}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\apps\test\mainCpp.cpp">
@@ -192,6 +195,9 @@
     <ClCompile Include="..\netbus\udp_session.cpp">
       <Filter>netbus</Filter>
     </ClCompile>
+    <ClCompile Include="..\database\mysql_wrapper.cpp">
+      <Filter>database</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\netbus\netbus.h">
@@ -328,6 +334,9 @@
     </ClInclude>
     <ClInclude Include="..\netbus\udp_session.h">
       <Filter>netbus</Filter>
+    </ClInclude>
+    <ClInclude Include="..\netbus\mysql_wrapper.h">
+      <Filter>database</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
