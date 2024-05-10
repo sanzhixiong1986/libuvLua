@@ -27,7 +27,17 @@ static void on_query_cb(const char* err, std::vector<std::vector<std::string>>* 
 		return;
 	}
 
+	/*if (result) {  // 检查指针是否非空
+		for (const auto& row : *result) {  // 遍历每个内部向量
+			for (const auto& item : row) {  // 遍历内部向量中的每个字符串
+				std::cout << item << " ";
+			}
+			std::cout << std::endl;
+		}
+	}*/
+
 	printf("success");
+	std::cout << result;
 }
 
 static void on_open_cb(const char* err, void* context) {
