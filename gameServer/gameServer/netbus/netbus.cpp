@@ -290,7 +290,7 @@ after_uv_udp_recv(uv_udp_t* handle,
 
 void
 netbus::start_upd_server(int port) {
-	printf("启动udp服务器");
+	printf("启动udp服务器\n");
 	uv_udp_t* server = (uv_udp_t*)malloc(sizeof(uv_udp_t));
 	memset(server, 0, sizeof(uv_udp_t));
 
