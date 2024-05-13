@@ -18,7 +18,7 @@ using namespace std;
 
 #include "../../database/redis_wrapper.h"
 
-#include "lua.hpp"
+#include "../../lua_wrapper/lua_wrapper.h"
 
 
 
@@ -90,10 +90,9 @@ test_redis() {
 /// </summary>
 static void text_lua() {
 	printf("启动lua的相关\n");
-	lua_State* lua = luaL_newstate();
-	luaL_openlibs(lua);
-	luaL_dofile(lua, "main.lua");
-	lua_close(lua);
+	lua_wrapper::init();
+	lua_wrapper::exe_lua_file("./main.lua");
+	lua_wrapper::exit();
 }
 
 int main(int argc, char** argv){

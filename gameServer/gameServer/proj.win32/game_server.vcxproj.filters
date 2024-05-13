@@ -40,6 +40,9 @@
     <Filter Include="database">
       <UniqueIdentifier>{c8de9951-3206-4e22-a7ea-23f1f15d7271}</UniqueIdentifier>
     </Filter>
+    <Filter Include="lua_wrapper">
+      <UniqueIdentifier>{13c3ee19-13a5-4251-aa4b-b74a57e81674}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\apps\test\mainCpp.cpp">
@@ -201,6 +204,9 @@
     <ClCompile Include="..\database\redis_wrapper.cpp">
       <Filter>database</Filter>
     </ClCompile>
+    <ClCompile Include="..\lua_wrapper\lua_wrapper.cpp">
+      <Filter>lua_wrapper</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\netbus\netbus.h">
@@ -343,6 +349,9 @@
     </ClInclude>
     <ClInclude Include="..\database\redis_wrapper.h">
       <Filter>database</Filter>
+    </ClInclude>
+    <ClInclude Include="..\lua_wrapper\lua_wrapper.h">
+      <Filter>lua_wrapper</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
