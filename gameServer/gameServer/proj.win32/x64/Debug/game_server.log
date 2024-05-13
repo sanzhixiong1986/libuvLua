@@ -1,3 +1,4 @@
 ﻿C:\Program Files (x86)\Microsoft Visual Studio\2019\Professional\MSBuild\Microsoft\VC\v160\Microsoft.CppBuild.targets(513,5): warning MSB8028: 中间目录(x64\Debug\)包含从另一个项目(game_server.vcxproj)共享的文件。   这会导致错误的清除和重新生成行为。
   mainCpp.cpp
+C:\work\c\libuvLua\gameServer\gameServer\apps\test\mainCpp.cpp(66,9): warning C4477: “printf”: 格式字符串“%s”需要类型“char *”的参数，但可变参数 1 拥有了类型“redisReply *”
   game_server.vcxproj -> C:\work\c\libuvLua\gameServer\gameServer\proj.win32\x64\Debug\gameServer.exe

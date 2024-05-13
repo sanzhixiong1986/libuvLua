@@ -198,6 +198,9 @@
     <ClCompile Include="..\database\mysql_wrapper.cpp">
       <Filter>database</Filter>
     </ClCompile>
+    <ClCompile Include="..\database\redis_wrapper.cpp">
+      <Filter>database</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\netbus\netbus.h">
@@ -336,6 +339,9 @@
       <Filter>netbus</Filter>
     </ClInclude>
     <ClInclude Include="..\netbus\mysql_wrapper.h">
+      <Filter>database</Filter>
+    </ClInclude>
+    <ClInclude Include="..\database\redis_wrapper.h">
       <Filter>database</Filter>
     </ClInclude>
   </ItemGroup>
