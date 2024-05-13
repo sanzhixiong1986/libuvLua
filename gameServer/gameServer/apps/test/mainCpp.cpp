@@ -16,6 +16,8 @@ using namespace std;
 
 #include "../../database/mysql_wrapper.h"
 
+#include "../../database/redis_wrapper.h"
+
 static
 void on_logger_timer(void* udata) {
 	log_debug("on_logger_timer");
@@ -54,6 +56,30 @@ static void test_db() {
 	mysql_wrapper::connect("127.0.0.1", 3306, "games", "root", "sanzhixiong", on_open_cb);
 }
 
+static void
+on_redis_query(const char* err, redisReply* result) {
+	if (err) {
+		printf("%s\n", err);
+		return;
+	}
+}
+
+static void
+on_redis_open(const char* err, void* context) {
+	if (err != NULL) {
+		printf("%s\n", err);
+		return;
+	}
+	printf("connect success\n");
+
+	redis_wrapper::query(context, "get hello", on_redis_query);
+	// redis_wrapper::close_redis(context);
+}
+
+static void
+test_redis() {
+	redis_wrapper::connect("127.0.0.1", 6379, on_redis_open);
+}
 
 int main(int argc, char** argv){
 
@@ -73,7 +99,8 @@ int main(int argc, char** argv){
 	schedule(on_logger_timer, NULL, 3000, -1);
 	*/
 
-	test_db();
+	//test_db();
+	test_redis();
 	netbus::instance()->init();
 	netbus::instance()->start_tcp_server(6080);
 	netbus::instance()->start_ws_server(8001);
