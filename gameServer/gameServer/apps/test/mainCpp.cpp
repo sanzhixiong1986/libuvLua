@@ -18,6 +18,10 @@ using namespace std;
 
 #include "../../database/redis_wrapper.h"
 
+#include "lua.hpp"
+
+
+
 static
 void on_logger_timer(void* udata) {
 	log_debug("on_logger_timer");
@@ -81,6 +85,17 @@ test_redis() {
 	redis_wrapper::connect("127.0.0.1", 6379, on_redis_open);
 }
 
+/// <summary>
+/// 测试lua的代码
+/// </summary>
+static void text_lua() {
+	printf("启动lua的相关\n");
+	lua_State* lua = luaL_newstate();
+	luaL_openlibs(lua);
+	luaL_dofile(lua, "main.lua");
+	lua_close(lua);
+}
+
 int main(int argc, char** argv){
 
 	proto_man::init(PROTO_BUF);
@@ -100,7 +115,8 @@ int main(int argc, char** argv){
 	*/
 
 	//test_db();
-	test_redis();
+	//test_redis();
+	text_lua();
 	netbus::instance()->init();
 	netbus::instance()->start_tcp_server(6080);
 	netbus::instance()->start_ws_server(8001);

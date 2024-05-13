@@ -349,5 +349,8 @@
     <None Include="..\apps\test\proto\game.proto">
       <Filter>apps\test\proto</Filter>
     </None>
+    <None Include="..\bin\main.lua">
+      <Filter>apps</Filter>
+    </None>
   </ItemGroup>
 </Project>

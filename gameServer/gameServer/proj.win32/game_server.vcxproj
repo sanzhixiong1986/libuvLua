@@ -82,7 +82,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>false</SDLCheck>
-      <AdditionalIncludeDirectories>C:\work\c\libuvLua\gameServer\redis;C:\work\c\libuvLua\gameServer\gameServer\proj.win32\mysqlclient\x64\include;C:\work\c\libuvLua\gameServer\gameServer\3rd\protobuf\src;C:\work\c\libuvLua\gameServer\gameServer\3rd\libuv\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\work\c\libuvLua\gameServer\lua-5.4.6\src;C:\work\c\libuvLua\gameServer\redis;C:\work\c\libuvLua\gameServer\gameServer\proj.win32\mysqlclient\x64\include;C:\work\c\libuvLua\gameServer\gameServer\3rd\protobuf\src;C:\work\c\libuvLua\gameServer\gameServer\3rd\libuv\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;WIN32;_DEBUG;_CONSOLE;_LIB;PROTOBUF_USE_DLLS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
@@ -90,8 +90,9 @@
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <OutputFile>$(OutDir)$(TargetName)$(TargetExt)</OutputFile>
-      <AdditionalDependencies>Userenv.lib;Psapi.lib;IPHlpApi.lib;libprotobufd.lib;libprotocd.lib;libmysql.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>C:\work\c\libuvLua\gameServer\redis\Debug;C:\work\c\libuvLua\gameServer\gameServer\proj.win32\mysqlclient\x64\lib;C:\work\c\libuvLua\gameServer\gameServer\proj.win32\lib\protobuf;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>msvcrtd.lib;libcmtd.lib;Userenv.lib;Psapi.lib;IPHlpApi.lib;libprotobufd.lib;libprotocd.lib;libmysql.lib;lua5.46.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>C:\work\c\libuvLua\gameServer\lua-5.4.6;C:\work\c\libuvLua\gameServer\redis\Debug;C:\work\c\libuvLua\gameServer\gameServer\proj.win32\mysqlclient\x64\lib;C:\work\c\libuvLua\gameServer\gameServer\proj.win32\lib\protobuf;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalOptions>/NODEFAULTLIB:library %(AdditionalOptions)</AdditionalOptions>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -228,6 +229,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="..\apps\test\proto\game.proto" />
+    <None Include="..\bin\main.lua" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
