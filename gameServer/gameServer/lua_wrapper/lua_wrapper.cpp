@@ -6,6 +6,7 @@
 #include "tolua_fix.h"
 
 #include "mysql_export_to_lua.h"
+#include "redis_export_to_lua.h"
 
 #include <iostream>
 
@@ -97,6 +98,7 @@ void lua_wrapper::init() {
 
 	//导出mysql的相关
 	register_mysql_export(g_lua_State);
+	register_redis_export(g_lua_State);
 
 	//导出log
 	lua_wrapper::reg_func2lua("log_error", lua_log_error);

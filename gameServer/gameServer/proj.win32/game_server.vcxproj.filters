@@ -231,6 +231,9 @@
     <ClCompile Include="..\lua_wrapper\mysql_export_to_lua.cpp">
       <Filter>lua_wrapper</Filter>
     </ClCompile>
+    <ClCompile Include="..\lua_wrapper\redis_export_to_lua.cpp">
+      <Filter>lua_wrapper</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\netbus\netbus.h">
@@ -387,6 +390,9 @@
       <Filter>3rd\tolua</Filter>
     </ClInclude>
     <ClInclude Include="..\lua_wrapper\mysql_export_to_lua.h">
+      <Filter>lua_wrapper</Filter>
+    </ClInclude>
+    <ClInclude Include="..\lua_wrapper\redis_export_to_lua.h">
       <Filter>lua_wrapper</Filter>
     </ClInclude>
   </ItemGroup>

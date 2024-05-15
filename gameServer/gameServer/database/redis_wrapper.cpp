@@ -1,9 +1,9 @@
-#define WIN32_INTEROP_TYPES_H 1
+ï»¿#define WIN32_INTEROP_TYPES_H 1
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
 
-//redisµÄÏà¹Ø
+//redisçš„ç›¸å…³
 #include "deps/hiredis/hiredis.h"
 #include "src/Win32_Interop/win32fixes.h"
 #pragma comment(lib,"Ws2_32.lib")
@@ -18,35 +18,27 @@
 #define my_free free
 
 struct connect_req {
-
 	char* ip;
 	int port;
 
-	void(*open_cb)(const char* err, void* context);
+	void(*open_cb)(const char* err, void* context, void* udata);
 
 	char* err;
 	void* context;
+	void* udata;
 };
 
 struct redis_context {
-	void* pConn;
+	void* pConn; // mysql
 	uv_mutex_t lock;
+
 	int is_closed;
 };
 
-struct query_req {
-	void* context;
-	char* cmd;
-	void(*query_cb)(const char* err, redisReply* result);
-
-	char* err;
-	redisReply* result;
-};
-
-static void connect_work(uv_work_t* req) {
+static void
+connect_work(uv_work_t* req) {
 	struct connect_req* r = (struct connect_req*)req->data;
-
-	struct timeval timeout = { 5,0 };
+	struct timeval timeout = { 5, 0 }; // 5 seconds
 	redisContext* rc = redisConnectWithTimeout((char*)r->ip, r->port, timeout);
 	if (rc->err) {
 		printf("Connection error: %s\n", rc->errstr);
@@ -64,9 +56,10 @@ static void connect_work(uv_work_t* req) {
 	}
 }
 
-static void on_connect_complete(uv_work_t* req, int status) {
+static void
+on_connect_complete(uv_work_t* req, int status) {
 	struct connect_req* r = (struct connect_req*)req->data;
-	r->open_cb(r->err, r->context);
+	r->open_cb(r->err, r->context, r->udata);
 
 	if (r->ip) {
 		free(r->ip);
@@ -75,19 +68,14 @@ static void on_connect_complete(uv_work_t* req, int status) {
 	if (r->err) {
 		free(r->err);
 	}
+
 	my_free(r);
 	my_free(req);
 }
 
-/// <summary>
-/// Á´½Ó
-/// </summary>
-/// <param name="ip">ip</param>
-/// <param name="port">¶Ë¿Ú</param>
-/// <param name="open_cb">·µ»Øº¯Êý</param>
 void
 redis_wrapper::connect(char* ip, int port,
-	void(*open_cb)(const char* err, void* context)) {
+	void(*open_cb)(const char* err, void* context, void* udata), void* udata) {
 	uv_work_t* w = (uv_work_t*)my_malloc(sizeof(uv_work_t));
 	memset(w, 0, sizeof(uv_work_t));
 
@@ -98,36 +86,30 @@ redis_wrapper::connect(char* ip, int port,
 	r->port = port;
 
 	r->open_cb = open_cb;
-
+	r->udata = udata;
 	w->data = (void*)r;
-	int result = uv_queue_work(uv_default_loop(), w, connect_work, on_connect_complete);
-	if (result) {
-		fprintf(stderr, "uv_queue_work failed with error %s\n", uv_strerror(result));
-		// ½øÐÐ´íÎó´¦Àí£¬ÈçÊÍ·ÅÄÚ´æµÈ
-	}
+	uv_queue_work(uv_default_loop(), w, connect_work, on_connect_complete);
 }
 
-static void on_close_complete(uv_work_t* req, int status) {
+static void
+close_work(uv_work_t* req) {
 	struct redis_context* r = (struct redis_context*)(req->data);
-	my_free(r);
-	my_free(req);
-}
-
-static void close_work(uv_work_t* req) {
-	struct redis_context* r = (struct redis_context*)(req->data);
-	uv_mutex_unlock(&r->lock);
-
+	uv_mutex_lock(&r->lock);
 	redisContext* c = (redisContext*)r->pConn;
 	redisFree(c);
 	r->pConn = NULL;
 	uv_mutex_unlock(&r->lock);
 }
 
-/// <summary>
-/// ¹Ø±ÕredisµÄ·½·¨
-/// </summary>
-/// <param name="context">¿Í»§¶ËµÄÁ´½Ó¶ÔÏó</param>
-void redis_wrapper::close_redis(void* context) {
+static void
+on_close_complete(uv_work_t* req, int status) {
+	struct redis_context* r = (struct redis_context*)(req->data);
+	my_free(r);
+	my_free(req);
+}
+
+void
+redis_wrapper::close_redis(void* context) {
 	struct redis_context* c = (struct redis_context*)context;
 	if (c->is_closed) {
 		return;
@@ -141,26 +123,41 @@ void redis_wrapper::close_redis(void* context) {
 	uv_queue_work(uv_default_loop(), w, close_work, on_close_complete);
 }
 
-static void query_work(uv_work_t* req) {
+struct query_req {
+	void* context;
+	char* cmd;
+	void(*query_cb)(const char* err, redisReply* result, void* udata);
+
+	char* err;
+	redisReply* result;
+	void* udata;
+};
+
+static void
+query_work(uv_work_t* req) {
 	query_req* r = (query_req*)req->data;
 
 	struct redis_context* my_conn = (struct redis_context*)(r->context);
 	redisContext* rc = (redisContext*)my_conn->pConn;
 
 	uv_mutex_lock(&my_conn->lock);
-	r->err = NULL;
-
 	redisReply* replay = (redisReply*)redisCommand(rc, r->cmd);
-
-	if (replay) {
+	if (replay->type == REDIS_REPLY_ERROR) {
+		r->err = strdup(replay->str);
+		r->result = NULL;
+		freeReplyObject(replay);
+	}
+	else {
 		r->result = replay;
+		r->err = NULL;
 	}
 	uv_mutex_unlock(&my_conn->lock);
 }
 
-static void on_query_complete(uv_work_t* req, int status) {
+static void
+on_query_complete(uv_work_t* req, int status) {
 	query_req* r = (query_req*)req->data;
-	r->query_cb(r->err, r->result);
+	r->query_cb(r->err, r->result, r->udata);
 
 	if (r->cmd) {
 		free(r->cmd);
@@ -178,14 +175,10 @@ static void on_query_complete(uv_work_t* req, int status) {
 	my_free(req);
 }
 
-
-/// <summary>
-/// Ö´ÐÐredisµÄÏà¹Ø²Ù×÷
-/// </summary>
-/// <param name="context">µØÖ·</param>
-/// <param name="cmd">ÃüÁî</param>
-/// <param name="query_cb">·µ»Ø</param>
-void redis_wrapper::query(void* context, char* cmd, void(*query_cb)(const char* err, redisReply* result)) {
+void
+redis_wrapper::query(void* context,
+	char* cmd,
+	void(*query_cb)(const char* err, redisReply* result, void* udata), void* udata) {
 	struct redis_context* c = (struct redis_context*)context;
 	if (c->is_closed) {
 		return;
@@ -196,10 +189,10 @@ void redis_wrapper::query(void* context, char* cmd, void(*query_cb)(const char* 
 
 	query_req* r = (query_req*)my_malloc(sizeof(query_req));
 	memset(r, 0, sizeof(query_req));
-
 	r->context = context;
 	r->cmd = strdup(cmd);
 	r->query_cb = query_cb;
+	r->udata = udata;
 
 	w->data = r;
 	uv_queue_work(uv_default_loop(), w, query_work, on_query_complete);

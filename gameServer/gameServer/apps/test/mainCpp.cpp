@@ -61,7 +61,7 @@ static void test_db() {
 }
 
 static void
-on_redis_query(const char* err, redisReply* result) {
+on_redis_query(const char* err, redisReply* result, void* udata) {
 	if (err) {
 		printf("%s\n", err);
 		return;
@@ -69,7 +69,7 @@ on_redis_query(const char* err, redisReply* result) {
 }
 
 static void
-on_redis_open(const char* err, void* context) {
+on_redis_open(const char* err, void* context, void* udata) {
 	if (err != NULL) {
 		printf("%s\n", err);
 		return;

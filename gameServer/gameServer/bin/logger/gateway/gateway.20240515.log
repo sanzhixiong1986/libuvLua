@@ -42,3 +42,9 @@ event call
 HelloWorld
 20240515 15:53:09 DEBUG ./main.lua:34  
 event call
+20240515 17:10:55 DEBUG ./main.lua:1  
+HelloWorld
+20240515 17:14:30 DEBUG ./main.lua:1  
+HelloWorld
+20240515 17:14:30 DEBUG ./main.lua:6  
+world
