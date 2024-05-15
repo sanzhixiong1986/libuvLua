@@ -46,7 +46,7 @@ static void on_query_cb(const char* err, std::vector<std::vector<std::string>>* 
 	std::cout << result;
 }
 
-static void on_open_cb(const char* err, void* context) {
+static void on_open_cb(const char* err, void* context,void* udata) {
 	if (err != NULL) {
 		printf("%s\n", err);
 		return;
@@ -113,9 +113,9 @@ int main(int argc, char** argv){
 	schedule(on_logger_timer, NULL, 3000, -1);
 	*/
 
-	//test_db();
+	test_db();
 	//test_redis();
-	text_lua();
+	//text_lua();
 	netbus::instance()->init();
 	netbus::instance()->start_tcp_server(6080);
 	netbus::instance()->start_ws_server(8001);

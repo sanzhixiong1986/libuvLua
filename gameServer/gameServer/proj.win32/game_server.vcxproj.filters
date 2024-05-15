@@ -43,6 +43,9 @@
     <Filter Include="lua_wrapper">
       <UniqueIdentifier>{13c3ee19-13a5-4251-aa4b-b74a57e81674}</UniqueIdentifier>
     </Filter>
+    <Filter Include="3rd\tolua">
+      <UniqueIdentifier>{4459d402-bfe3-4efd-8cb9-41b438003ae6}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\apps\test\mainCpp.cpp">
@@ -207,6 +210,27 @@
     <ClCompile Include="..\lua_wrapper\lua_wrapper.cpp">
       <Filter>lua_wrapper</Filter>
     </ClCompile>
+    <ClCompile Include="..\3rd\tolua\tolua_event.c">
+      <Filter>3rd\tolua</Filter>
+    </ClCompile>
+    <ClCompile Include="..\3rd\tolua\tolua_fix.cc">
+      <Filter>3rd\tolua</Filter>
+    </ClCompile>
+    <ClCompile Include="..\3rd\tolua\tolua_is.c">
+      <Filter>3rd\tolua</Filter>
+    </ClCompile>
+    <ClCompile Include="..\3rd\tolua\tolua_map.c">
+      <Filter>3rd\tolua</Filter>
+    </ClCompile>
+    <ClCompile Include="..\3rd\tolua\tolua_push.c">
+      <Filter>3rd\tolua</Filter>
+    </ClCompile>
+    <ClCompile Include="..\3rd\tolua\tolua_to.c">
+      <Filter>3rd\tolua</Filter>
+    </ClCompile>
+    <ClCompile Include="..\database\mysql_export_to_lua.cpp">
+      <Filter>database</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\netbus\netbus.h">
@@ -352,6 +376,18 @@
     </ClInclude>
     <ClInclude Include="..\lua_wrapper\lua_wrapper.h">
       <Filter>lua_wrapper</Filter>
+    </ClInclude>
+    <ClInclude Include="..\3rd\tolua\tolua_event.h">
+      <Filter>3rd\tolua</Filter>
+    </ClInclude>
+    <ClInclude Include="..\3rd\tolua\tolua_fix.h">
+      <Filter>3rd\tolua</Filter>
+    </ClInclude>
+    <ClInclude Include="..\3rd\tolua\tolua++.h">
+      <Filter>3rd\tolua</Filter>
+    </ClInclude>
+    <ClInclude Include="..\database\mysql_export_to_lua.h">
+      <Filter>database</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -12,6 +12,15 @@ public:
 
 	static bool exe_lua_file(const char* lua_file);
 
+	static lua_State* lua_state();
+
+	static void reg_func2lua(const char* name, int(*c_func)(lua_State* L));
+
+public:
+	static int execute_script_handler(int nhandler, int numArgs);
+
+	static void remove_script_handler(int nHandler);
+
 };
 
 #endif
