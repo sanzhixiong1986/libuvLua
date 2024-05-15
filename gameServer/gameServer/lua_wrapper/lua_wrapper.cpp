@@ -5,6 +5,8 @@
 #include "../utils/logger.h"
 #include "tolua_fix.h"
 
+#include "mysql_export_to_lua.h"
+
 #include <iostream>
 
 using namespace std;
@@ -12,7 +14,8 @@ using namespace std;
 #include "lua_wrapper.h"
 
 
-lua_State* g_lua_State = NULL;
+static lua_State* g_lua_State = NULL;
+
 
 static void do_log_message(void(*log)(const char* file_name, int line_num, const char* msg), const char* msg) {
 	lua_Debug info;
@@ -92,6 +95,9 @@ void lua_wrapper::init() {
 	luaL_openlibs(g_lua_State);
 	toluafix_open(g_lua_State);
 
+	//导出mysql的相关
+	register_mysql_export(g_lua_State);
+
 	//导出log
 	lua_wrapper::reg_func2lua("log_error", lua_log_error);
 	lua_wrapper::reg_func2lua("log_debug", lua_log_debug);
@@ -170,8 +176,9 @@ static int executeFunction(int numArgs) {
 }
 
 static bool pushFunctionByHandler(int nhandler) {
-	toluafix_remove_function_by_refid(g_lua_State, nhandler);
-	if (!lua_isfunction(g_lua_State, -1)) {
+	toluafix_get_function_by_refid(g_lua_State, nhandler);                  /* L: ... func */
+	if (!lua_isfunction(g_lua_State, -1))
+	{
 		log_error("[LUA ERROR] function refid '%d' does not reference a Lua function", nhandler);
 		lua_pop(g_lua_State, 1);
 		return false;

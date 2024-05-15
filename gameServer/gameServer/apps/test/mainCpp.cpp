@@ -27,7 +27,7 @@ void on_logger_timer(void* udata) {
 	log_debug("on_logger_timer");
 }
 
-static void on_query_cb(const char* err, std::vector<std::vector<std::string>>* result) {
+static void on_query_cb(const char* err, MYSQL_RES* result, void* udata) {
 	if (err) {
 		printf("err");
 		return;
@@ -92,7 +92,7 @@ static void text_lua() {
 	printf("启动lua的相关\n");
 	lua_wrapper::init();
 	lua_wrapper::exe_lua_file("./main.lua");
-	lua_wrapper::exit();
+	//lua_wrapper::exit();
 }
 
 int main(int argc, char** argv){
@@ -100,8 +100,8 @@ int main(int argc, char** argv){
 	proto_man::init(PROTO_BUF);
 	init_pf_cmd_map();
 	//时间戳的和log的相关操作
-	/*logger::init("logger/gateway/", "gateway", true);
-
+	logger::init("logger/gateway/", "gateway", true);
+	/*
 	log_error("%d", timestamp());
 	log_error("%d", timestamp_today());
 	log_debug("%d", date2timestamp("%Y-%m-%d %H:%M:%S", "2018-02-01 00:00:00"));
@@ -113,13 +113,15 @@ int main(int argc, char** argv){
 	schedule(on_logger_timer, NULL, 3000, -1);
 	*/
 
-	test_db();
+	//test_db();
 	//test_redis();
-	//text_lua();
+	
 	netbus::instance()->init();
 	netbus::instance()->start_tcp_server(6080);
 	netbus::instance()->start_ws_server(8001);
 	netbus::instance()->start_upd_server(8002);
+	text_lua();
 	netbus::instance()->run();
+	lua_wrapper::exit();
 	return 0;
 }

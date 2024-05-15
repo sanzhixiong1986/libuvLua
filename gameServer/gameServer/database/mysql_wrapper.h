@@ -1,8 +1,7 @@
 #ifndef __MYSQL_WRAPPER_H__
 #define __MYSQL_WRAPPER_H__
 
-#include <vector>
-#include <string>
+#include "mysql.h"
 
 class mysql_wrapper {
 public:
@@ -14,7 +13,7 @@ public:
 
 	static void query(void* context,
 		char* sql,
-		void(*query_cb)(const char* err, std::vector<std::vector<std::string>>* result));
+		void(*query_cb)(const char* err, MYSQL_RES* result, void* udata), void* udata = NULL);
 };
 
 #endif

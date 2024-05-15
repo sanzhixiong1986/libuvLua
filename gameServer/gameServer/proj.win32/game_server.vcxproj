@@ -169,10 +169,10 @@
     <ClCompile Include="..\apps\test\mainCpp.cpp" />
     <ClCompile Include="..\apps\test\proto\game.pb.cc" />
     <ClCompile Include="..\apps\test\proto\pf_cmd_map.cpp" />
-    <ClCompile Include="..\database\mysql_export_to_lua.cpp" />
     <ClCompile Include="..\database\mysql_wrapper.cpp" />
     <ClCompile Include="..\database\redis_wrapper.cpp" />
     <ClCompile Include="..\lua_wrapper\lua_wrapper.cpp" />
+    <ClCompile Include="..\lua_wrapper\mysql_export_to_lua.cpp" />
     <ClCompile Include="..\netbus\netbus.cpp" />
     <ClCompile Include="..\netbus\proto_man.cpp" />
     <ClCompile Include="..\netbus\service.cpp" />
@@ -222,9 +222,9 @@
     <ClInclude Include="..\3rd\tolua\tolua_fix.h" />
     <ClInclude Include="..\apps\test\proto\game.pb.h" />
     <ClInclude Include="..\apps\test\proto\pf_cmd_map.h" />
-    <ClInclude Include="..\database\mysql_export_to_lua.h" />
     <ClInclude Include="..\database\redis_wrapper.h" />
     <ClInclude Include="..\lua_wrapper\lua_wrapper.h" />
+    <ClInclude Include="..\lua_wrapper\mysql_export_to_lua.h" />
     <ClInclude Include="..\netbus\mysql_wrapper.h" />
     <ClInclude Include="..\netbus\netbus.h" />
     <ClInclude Include="..\netbus\proto_man.h" />
