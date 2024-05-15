@@ -48,3 +48,13 @@ HelloWorld
 HelloWorld
 20240515 17:14:30 DEBUG ./main.lua:6  
 world
+20240515 19:19:42 DEBUG ./main.lua:1  
+HelloWorld
+20240515 19:21:43 DEBUG ./main.lua:1  
+HelloWorld
+20240515 19:21:43 ERROR trunk:0  
+./main.lua:87: attempt to concatenate a boolean value (local 'ret')
+20240515 19:22:10 DEBUG ./main.lua:1  
+HelloWorld
+20240515 19:22:38 DEBUG ./main.lua:1  
+HelloWorld
