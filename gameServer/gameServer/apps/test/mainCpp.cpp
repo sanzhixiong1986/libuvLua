@@ -117,9 +117,9 @@ int main(int argc, char** argv){
 	//test_redis();
 	
 	netbus::instance()->init();
-	netbus::instance()->start_tcp_server(6080);
-	netbus::instance()->start_ws_server(8001);
-	netbus::instance()->start_upd_server(8002);
+	netbus::instance()->tcp_listen(6080);
+	netbus::instance()->ws_listen(8001);
+	netbus::instance()->udp_listen(8002);
 	text_lua();
 	netbus::instance()->run();
 	lua_wrapper::exit();

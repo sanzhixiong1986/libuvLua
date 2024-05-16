@@ -13,5 +13,5 @@ std::map<int, std::string> cmd_map = {
 };
 
 void init_pf_cmd_map() {
-	proto_man::register_pb_cmd_map(cmd_map);
+	proto_man::register_protobuf_cmd_map(cmd_map);
 }
