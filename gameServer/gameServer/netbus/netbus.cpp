@@ -202,7 +202,7 @@ netbus* netbus::instance() {
 /************************************************************************/
 /* 启动tcp的服务器 参数 port 为端口                                     */
 /************************************************************************/
-void netbus::start_tcp_server(int port) {
+void netbus::tcp_listen(int port) {
 	printf("start_tcp_server\n");
 	//创建tcp服务器的基础
 	uv_tcp_t* listen = (uv_tcp_t*)malloc(sizeof(uv_tcp_t));//创建tcp的
@@ -228,7 +228,7 @@ void netbus::start_tcp_server(int port) {
 }
 
 //启动websocket
-void netbus::start_ws_server(int port){
+void netbus::ws_listen(int port){
 	printf("启动websocket\n");
 	uv_tcp_t* listen = (uv_tcp_t*)malloc(sizeof(uv_tcp_t));
 	memset(listen, 0, sizeof(uv_tcp_t));
@@ -289,7 +289,7 @@ after_uv_udp_recv(uv_udp_t* handle,
 }
 
 void
-netbus::start_upd_server(int port) {
+netbus::udp_listen(int port) {
 	printf("启动udp服务器\n");
 	uv_udp_t* server = (uv_udp_t*)malloc(sizeof(uv_udp_t));
 	memset(server, 0, sizeof(uv_udp_t));

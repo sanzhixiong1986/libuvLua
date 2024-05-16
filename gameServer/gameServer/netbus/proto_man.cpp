@@ -25,7 +25,7 @@ proto_man::proto_type() {
 }
 
 void
-proto_man::register_pb_cmd_map(std::map<int, std::string>& map) {
+proto_man::register_protobuf_cmd_map(std::map<int, std::string>& map) {
 	std::map<int, std::string>::iterator it;
 	for (it = map.begin(); it != map.end(); it++) {
 		g_pb_cmd_map[it->first] = it->second;
