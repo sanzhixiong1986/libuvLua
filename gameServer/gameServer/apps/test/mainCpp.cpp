@@ -77,7 +77,7 @@ test_redis() {
 	redis_wrapper::connect("127.0.0.1", 6379, on_redis_open);
 }
 
-int main(int argc, char** argv) {
+int mainCpp(int argc, char** argv) {
 	proto_man::init(PROTO_BUF);
 	init_pf_cmd_map();
 	logger::init("logger/gateway/", "gateway", true);
