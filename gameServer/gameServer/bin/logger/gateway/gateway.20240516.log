@@ -1,0 +1,16 @@
+20240516 13:55:55 DEBUG C:/work/c/libuvLua/gameServer/gameServer/apps/lua_test/scripts/main.lua:5  
+main.lua 被执行
+20240516 13:55:55 DEBUG C:/work/c/libuvLua/gameServer/gameServer/apps/lua_test/scripts/main.lua:29  
+start service success !!!!
+20240516 13:56:28 DEBUG C:/work/c/libuvLua/gameServer/gameServer/apps/lua_test/scripts/main.lua:5  
+main.lua is start
+20240516 13:56:28 DEBUG C:/work/c/libuvLua/gameServer/gameServer/apps/lua_test/scripts/main.lua:29  
+start service success !!!!
+20240516 13:56:44 DEBUG C:/work/c/libuvLua/gameServer/gameServer/apps/lua_test/scripts/main.lua:5  
+main.lua is start
+20240516 13:56:44 DEBUG C:/work/c/libuvLua/gameServer/gameServer/apps/lua_test/scripts/main.lua:29  
+start service success !!!!
+20240516 13:57:40 DEBUG C:/work/c/libuvLua/gameServer/gameServer/apps/lua_test/scripts/main.lua:5  
+main.lua is start
+20240516 13:57:40 ERROR trunk:0  
+...Lua/gameServer/gameServer/apps/lua_test/scripts/main.lua:29: attempt to call a nil value (global 'log_debug')
