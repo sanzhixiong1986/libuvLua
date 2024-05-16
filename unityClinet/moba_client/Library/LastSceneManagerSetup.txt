@@ -1,4 +1,4 @@
 sceneSetups:
-- path: C:/work/c/1/moba_game_server_tcp_client_17/unity_moba_client/Assets/Scenes/game_scene.unity
+- path: Assets/Scenes/game.unity
   isLoaded: 1
   isActive: 1
