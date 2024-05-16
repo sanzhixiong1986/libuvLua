@@ -14,3 +14,71 @@ start service success !!!!
 main.lua is start
 20240516 13:57:40 ERROR trunk:0  
 ...Lua/gameServer/gameServer/apps/lua_test/scripts/main.lua:29: attempt to call a nil value (global 'log_debug')
+20240516 14:53:10 DEBUG C:/work/c/libuvLua/gameServer/gameServer/apps/lua_test/scripts/main.lua:5  
+main.lua is start
+20240516 14:53:10 DEBUG C:/work/c/libuvLua/gameServer/gameServer/apps/lua_test/scripts/main.lua:29  
+start service success !!!!
+20240516 15:32:47 DEBUG C:/work/c/libuvLua/gameServer/gameServer/apps/lua_test/scripts/main.lua:5  
+main.lua is start
+20240516 15:32:47 DEBUG C:/work/c/libuvLua/gameServer/gameServer/apps/lua_test/scripts/main.lua:29  
+start service success !!!!
+20240516 15:33:32 DEBUG C:/work/c/libuvLua/gameServer/gameServer/apps/lua_test/scripts/main.lua:5  
+main.lua is start
+20240516 15:33:32 DEBUG C:/work/c/libuvLua/gameServer/gameServer/apps/lua_test/scripts/main.lua:29  
+start service success !!!!
+20240516 15:50:42 DEBUG C:/work/c/libuvLua/gameServer/gameServer/apps/lua_test/scripts/main.lua:5  
+main.lua is start
+20240516 15:50:42 DEBUG C:/work/c/libuvLua/gameServer/gameServer/apps/lua_test/scripts/main.lua:29  
+start service success !!!!
+20240516 15:51:00 DEBUG C:/work/c/libuvLua/gameServer/gameServer/apps/lua_test/scripts/echo_server.lua:2  
+1
+20240516 15:51:00 DEBUG C:/work/c/libuvLua/gameServer/gameServer/apps/lua_test/scripts/echo_server.lua:3  
+1
+20240516 15:51:00 DEBUG C:/work/c/libuvLua/gameServer/gameServer/apps/lua_test/scripts/echo_server.lua:4  
+0
+20240516 15:51:00 DEBUG C:/work/c/libuvLua/gameServer/gameServer/apps/lua_test/scripts/echo_server.lua:7  
+blake
+20240516 15:51:00 DEBUG C:/work/c/libuvLua/gameServer/gameServer/apps/lua_test/scripts/echo_server.lua:8  
+blake@bycw.edu
+20240516 15:51:00 DEBUG C:/work/c/libuvLua/gameServer/gameServer/apps/lua_test/scripts/echo_server.lua:9  
+34
+20240516 16:09:25 DEBUG C:/work/c/libuvLua/gameServer/gameServer/apps/lua_test/scripts/main.lua:5  
+main.lua is start
+20240516 16:09:25 DEBUG C:/work/c/libuvLua/gameServer/gameServer/apps/lua_test/scripts/main.lua:29  
+start service success !!!!
+20240516 16:09:41 DEBUG C:/work/c/libuvLua/gameServer/gameServer/apps/lua_test/scripts/echo_server.lua:2  
+1
+20240516 16:09:41 DEBUG C:/work/c/libuvLua/gameServer/gameServer/apps/lua_test/scripts/echo_server.lua:3  
+1
+20240516 16:09:41 DEBUG C:/work/c/libuvLua/gameServer/gameServer/apps/lua_test/scripts/echo_server.lua:4  
+0
+20240516 16:09:41 DEBUG C:/work/c/libuvLua/gameServer/gameServer/apps/lua_test/scripts/echo_server.lua:7  
+blake
+20240516 16:09:41 DEBUG C:/work/c/libuvLua/gameServer/gameServer/apps/lua_test/scripts/echo_server.lua:8  
+blake@bycw.edu
+20240516 16:09:41 DEBUG C:/work/c/libuvLua/gameServer/gameServer/apps/lua_test/scripts/echo_server.lua:9  
+34
+20240516 16:26:03 DEBUG C:/work/c/libuvLua/gameServer/gameServer/apps/lua_test/scripts/main.lua:5  
+main.lua is start
+20240516 16:26:03 DEBUG C:/work/c/libuvLua/gameServer/gameServer/apps/lua_test/scripts/main.lua:29  
+start service success !!!!
+20240516 16:26:50 DEBUG C:/work/c/libuvLua/gameServer/gameServer/apps/lua_test/scripts/echo_server.lua:18  
+echo_session_disconnect 127.0.0.1 : 51579
+20240516 16:28:40 DEBUG C:/work/c/libuvLua/gameServer/gameServer/apps/lua_test/scripts/echo_server.lua:18  
+echo_session_disconnect 127.0.0.1 : 51596
+20240516 16:29:02 DEBUG C:/work/c/libuvLua/gameServer/gameServer/apps/lua_test/scripts/echo_server.lua:18  
+echo_session_disconnect 127.0.0.1 : 51607
+20240516 16:29:35 DEBUG C:/work/c/libuvLua/gameServer/gameServer/apps/lua_test/scripts/echo_server.lua:2  
+1
+20240516 16:29:35 DEBUG C:/work/c/libuvLua/gameServer/gameServer/apps/lua_test/scripts/echo_server.lua:3  
+1
+20240516 16:29:35 DEBUG C:/work/c/libuvLua/gameServer/gameServer/apps/lua_test/scripts/echo_server.lua:4  
+0
+20240516 16:29:35 DEBUG C:/work/c/libuvLua/gameServer/gameServer/apps/lua_test/scripts/echo_server.lua:7  
+blake
+20240516 16:29:35 DEBUG C:/work/c/libuvLua/gameServer/gameServer/apps/lua_test/scripts/echo_server.lua:8  
+blake@bycw.edu
+20240516 16:29:35 DEBUG C:/work/c/libuvLua/gameServer/gameServer/apps/lua_test/scripts/echo_server.lua:9  
+34
+20240516 16:29:56 DEBUG C:/work/c/libuvLua/gameServer/gameServer/apps/lua_test/scripts/echo_server.lua:18  
+echo_session_disconnect 127.0.0.1 : 51629

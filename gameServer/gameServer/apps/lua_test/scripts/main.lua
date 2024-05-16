@@ -27,3 +27,6 @@ netbus.udp_listen(8002)
 
 
 print("start service success !!!!")
+
+local echo_server = require("echo_server")
+service.register(echo_server.stype, echo_server.service)
