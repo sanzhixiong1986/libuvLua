@@ -1,25 +1,26 @@
-#ifndef __MY_TIMER_LIST_H__
+ï»¿#ifndef __MY_TIMER_LIST_H__
 #define __MY_TIMER_LIST_H__
 
 
 #ifdef __cplusplus
 extern "C" {
 #endif
-	// on_timerÊÇÒ»¸ö»Øµôº¯Êı,µ±timer´¥·¢µÄÊ±ºòµ÷ÓÃ;
-	// udata: ÊÇÓÃ»§´«µÄ×Ô¶¨ÒåµÄÊı¾İ½á¹¹;
-	// on_timerÖ´ĞĞµÄÊ±ºò udata,¾ÍÊÇÄãÕâ¸öudata;
-	// after_sec: ¶àÉÙÃë¿ªÊ¼Ö´ĞĞ;
-	// repeat_count: Ö´ĞĞ¶àÉÙ´Î, repeat_count == -1Ò»Ö±Ö´ĞĞ;
-	// ·µ»ØtimerµÄ¾ä±ú;
+	// on_timeræ˜¯ä¸€ä¸ªå›æ‰å‡½æ•°,å½“timerè§¦å‘çš„æ—¶å€™è°ƒç”¨;
+	// udata: æ˜¯ç”¨æˆ·ä¼ çš„è‡ªå®šä¹‰çš„æ•°æ®ç»“æ„;
+	// on_timeræ‰§è¡Œçš„æ—¶å€™ udata,å°±æ˜¯ä½ è¿™ä¸ªudata;
+	// after_sec: å¤šå°‘ç§’å¼€å§‹æ‰§è¡Œ;
+	// repeat_count: æ‰§è¡Œå¤šå°‘æ¬¡, repeat_count == -1ä¸€ç›´æ‰§è¡Œ;
+	// è¿”å›timerçš„å¥æŸ„;
 	struct timer;
 	struct timer*
-		schedule(void(*on_timer)(void* udata),
+		schedule_repeat(void(*on_timer)(void* udata),
 			void* udata,
 			int after_msec,
-			int repeat_count);
+			int repeat_count,
+			int repeat_msec);
 
 
-	// È¡ÏûµôÕâ¸ötimer;
+	// å–æ¶ˆæ‰è¿™ä¸ªtimer;
 	void
 		cancel_timer(struct timer* t);
 
@@ -29,6 +30,7 @@ extern "C" {
 			int after_msec);
 
 
+	void* get_timer_udata(struct timer* t);
 #ifdef __cplusplus
 }
 #endif
