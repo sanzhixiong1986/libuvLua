@@ -131,7 +131,7 @@ proto_man::encode_msg_to_raw(const struct cmd_msg* msg, int* out_len) {
 
 	*out_len = 0;
 
-	if (g_proto_type == PROTO_JSON) {
+	if (g_proto_type == PROTO_JSON && msg->body != NULL) {
 		char* json_str = (char*)msg->body;
 		int len = strlen(json_str) + 1;
 		raw_data = (unsigned char*)malloc(CMD_HEADER + len);
@@ -139,7 +139,7 @@ proto_man::encode_msg_to_raw(const struct cmd_msg* msg, int* out_len) {
 		raw_data[8 + len] = 0;
 		*out_len = (len + CMD_HEADER);
 	}
-	else { // protobuf
+	else if(g_proto_type == PROTO_BUF && msg->body != NULL){ // protobuf
 		google::protobuf::Message* p_m = (google::protobuf::Message*)msg->body;
 		int pf_len = p_m->ByteSize();
 		raw_data = (unsigned char*)malloc(CMD_HEADER + pf_len);
