@@ -308,6 +308,8 @@ lua_service::on_session_recv_cmd(session* s, struct cmd_msg* msg) {
 
 	if (!msg->body) {
 		lua_pushnil(lua_wrapper::lua_state());
+		lua_rawseti(lua_wrapper::lua_state(), -2, index);
+		++index;
 	}
 	else {
 		if (proto_man::proto_type() == PROTO_JSON) {
