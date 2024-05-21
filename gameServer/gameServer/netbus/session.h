@@ -5,10 +5,12 @@ class session {
 public:
 	unsigned int as_client;
 	unsigned int utag;
+	unsigned int uid;
 
 	session() {
 		this->as_client = 0;
 		this->utag = 0;
+		this->uid = 0;
 	}
 
 public:
