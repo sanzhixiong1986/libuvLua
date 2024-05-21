@@ -149,12 +149,12 @@
     <Compile Include="Assets\Scripts\3rd\protobuf\ServiceModel\XmlProtoSerializer.cs" />
     <Compile Include="Assets\Scripts\3rd\protobuf\SubItemToken.cs" />
     <Compile Include="Assets\Scripts\3rd\protobuf\WireType.cs" />
-    <Compile Include="Assets\Scripts\game.cs" />
     <Compile Include="Assets\Scripts\network\data_viewer.cs" />
     <Compile Include="Assets\Scripts\network\network.cs" />
     <Compile Include="Assets\Scripts\network\proto_man.cs" />
     <Compile Include="Assets\Scripts\network\protos\game.cs" />
     <Compile Include="Assets\Scripts\network\tcp_packer.cs" />
+    <Compile Include="Assets\Scripts\talkroom.cs" />
     <Reference Include="UnityEngine.Purchasing">
       <HintPath>C:/work/c/libuvLua/unityClinet/moba_client/Library/ScriptAssemblies/UnityEngine.Purchasing.dll</HintPath>
     </Reference>
