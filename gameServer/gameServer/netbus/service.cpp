@@ -17,7 +17,7 @@ service::on_session_recv_cmd(session* s, struct cmd_msg* msg) {
 }
 
 void
-service::on_session_disconnect(session* s) {
+service::on_session_disconnect(session* s, int stype) {
 
 }
 

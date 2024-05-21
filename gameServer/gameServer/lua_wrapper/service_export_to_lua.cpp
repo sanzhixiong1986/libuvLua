@@ -160,7 +160,7 @@ public:
 public:
 	virtual bool on_session_recv_raw_cmd(session* s, struct raw_cmd* raw);
 	virtual bool on_session_recv_cmd(session* s, struct cmd_msg* msg);
-	virtual void on_session_disconnect(session* s);
+	virtual void on_session_disconnect(session* s, int stype);
 };
 
 
@@ -337,9 +337,10 @@ lua_service::on_session_recv_raw_cmd(session* s, struct raw_cmd* raw) {
 }
 
 void
-lua_service::on_session_disconnect(session* s) {
+lua_service::on_session_disconnect(session* s, int stype) {
 	tolua_pushuserdata(lua_wrapper::lua_state(), (void*)s);
-	execute_service_function(this->lua_disconnect_handler, 1);
+	lua_pushinteger(lua_wrapper::lua_state(), stype);
+	execute_service_function(this->lua_disconnect_handler, 2);
 }
 
 static int
