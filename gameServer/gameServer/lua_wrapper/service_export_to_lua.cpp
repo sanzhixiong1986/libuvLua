@@ -308,7 +308,7 @@ lua_service::on_session_recv_cmd(session* s, struct cmd_msg* msg) {
 
 	if (!msg->body) {
 		lua_pushnil(lua_wrapper::lua_state());
-		lua_rawseti(lua_wrapper::lua_state(), -2, index);
+		lua_rawseti(lua_wrapper::lua_state(), -2, index);          /* table[index] = value, L: table */
 		++index;
 	}
 	else {
@@ -372,8 +372,8 @@ register_service_export(lua_State* tolua_S) {
 	lua_getglobal(tolua_S, "_G");
 	if (lua_istable(tolua_S, -1)) {
 		tolua_open(tolua_S);
-		tolua_module(tolua_S, "service", 0);
-		tolua_beginmodule(tolua_S, "service");
+		tolua_module(tolua_S, "Service", 0);
+		tolua_beginmodule(tolua_S, "Service");
 
 		tolua_function(tolua_S, "register", lua_register_service);
 		tolua_endmodule(tolua_S);

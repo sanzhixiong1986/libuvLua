@@ -88,7 +88,7 @@ on_lua_query_cb(const char* err, redisReply* result, void* udata) {
 	}
 	else {
 		lua_pushnil(lua_wrapper::lua_state());
-		if (result) {
+		if (result) { // °Ñ²éÑ¯µÃµ½µÄ½á¹ûpush lua
 			push_result_to_lua(result);
 		}
 		else {
@@ -125,8 +125,8 @@ register_redis_export(lua_State* tolua_S) {
 	lua_getglobal(tolua_S, "_G");
 	if (lua_istable(tolua_S, -1)) {
 		tolua_open(tolua_S);
-		tolua_module(tolua_S, "redis_wrapper", 0);
-		tolua_beginmodule(tolua_S, "redis_wrapper");
+		tolua_module(tolua_S, "Redis", 0);
+		tolua_beginmodule(tolua_S, "Redis");
 
 		tolua_function(tolua_S, "connect", lua_redis_connect);
 		tolua_function(tolua_S, "close_redis", lua_redis_close);

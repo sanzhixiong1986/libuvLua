@@ -67,8 +67,8 @@ register_proto_man_export(lua_State* tolua_S) {
 	lua_getglobal(tolua_S, "_G");
 	if (lua_istable(tolua_S, -1)) {
 		tolua_open(tolua_S);
-		tolua_module(tolua_S, "proto_man", 0);
-		tolua_beginmodule(tolua_S, "proto_man");
+		tolua_module(tolua_S, "ProtoMan", 0);
+		tolua_beginmodule(tolua_S, "ProtoMan");
 
 		tolua_function(tolua_S, "init", lua_proto_man_init);
 		tolua_function(tolua_S, "proto_type", lua_proto_type);

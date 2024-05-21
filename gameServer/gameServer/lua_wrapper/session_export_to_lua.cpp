@@ -9,7 +9,6 @@
 #include "../utils/logger.h"
 
 #include "lua_wrapper.h"
-#include <string>
 
 #include "google/protobuf/message.h"
 using namespace google::protobuf;
@@ -332,17 +331,62 @@ lua_failed:
 	return 0;
 }
 
+static int
+lua_set_utag(lua_State* tolua_S) {
+	session* s = (session*)tolua_touserdata(tolua_S, 1, NULL);
+	if (s == NULL) {
+		goto lua_failed;
+	}
+
+	unsigned int utag = lua_tointeger(tolua_S, 2);
+	s->utag = utag;
+
+lua_failed:
+	return 0;
+}
+
+static int
+lua_get_utag(lua_State* tolua_S) {
+	session* s = (session*)tolua_touserdata(tolua_S, 1, NULL);
+	if (s == NULL) {
+		goto lua_failed;
+	}
+
+	lua_pushinteger(tolua_S, s->utag);
+	return 1;
+
+lua_failed:
+	return 0;
+}
+
+static int
+lua_as_client(lua_State* tolua_S) {
+	session* s = (session*)tolua_touserdata(tolua_S, 1, NULL);
+	if (s == NULL) {
+		goto lua_failed;
+	}
+
+	lua_pushinteger(tolua_S, s->as_client);
+	return 1;
+
+lua_failed:
+	return 0;
+}
+
 int
 register_session_export(lua_State* tolua_S) {
 	lua_getglobal(tolua_S, "_G");
 	if (lua_istable(tolua_S, -1)) {
 		tolua_open(tolua_S);
-		tolua_module(tolua_S, "session", 0);
-		tolua_beginmodule(tolua_S, "session");
+		tolua_module(tolua_S, "Session", 0);
+		tolua_beginmodule(tolua_S, "Session");
 
 		tolua_function(tolua_S, "close", lua_session_close);
 		tolua_function(tolua_S, "send_msg", lua_send_msg);
 		tolua_function(tolua_S, "get_address", lua_get_addr);
+		tolua_function(tolua_S, "set_utag", lua_set_utag);
+		tolua_function(tolua_S, "get_utag", lua_get_utag);
+		tolua_function(tolua_S, "asclient", lua_as_client);
 		tolua_endmodule(tolua_S);
 	}
 	lua_pop(tolua_S, 1);

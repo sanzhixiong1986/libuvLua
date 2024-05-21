@@ -14,6 +14,7 @@ extern "C" {
 #endif
 
 #include "tolua_fix.h"
+#include "mysql_export_to_lua.h"
 
 static void
 on_open_cb(const char* err, void* context, void* udata) {
@@ -140,8 +141,8 @@ register_mysql_export(lua_State* tolua_S) {
 	lua_getglobal(tolua_S, "_G");
 	if (lua_istable(tolua_S, -1)) {
 		tolua_open(tolua_S);
-		tolua_module(tolua_S, "mysql_wrapper", 0);
-		tolua_beginmodule(tolua_S, "mysql_wrapper");
+		tolua_module(tolua_S, "Mysql", 0);
+		tolua_beginmodule(tolua_S, "Mysql");
 
 		tolua_function(tolua_S, "connect", lua_mysql_connect);
 		tolua_function(tolua_S, "close", lua_mysql_close);

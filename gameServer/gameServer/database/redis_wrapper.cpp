@@ -13,9 +13,25 @@
 
 #include "uv.h"
 #include "redis_wrapper.h"
+#include "../utils/small_alloc.h"
 
-#define my_malloc malloc
-#define my_free free
+#define my_malloc small_alloc
+#define my_free small_free
+
+static char*
+my_strdup(const char* src) {
+	int len = strlen(src) + 1;
+	char* dst = (char*)my_malloc(len);
+	strcpy(dst, src);
+
+
+	return dst;
+}
+
+static void
+free_strdup(char* str) {
+	my_free(str);
+}
 
 struct connect_req {
 	char* ip;
@@ -42,7 +58,7 @@ connect_work(uv_work_t* req) {
 	redisContext* rc = redisConnectWithTimeout((char*)r->ip, r->port, timeout);
 	if (rc->err) {
 		printf("Connection error: %s\n", rc->errstr);
-		r->err = strdup(rc->errstr);
+		r->err = my_strdup(rc->errstr);
 		r->context = NULL;
 		redisFree(rc);
 	}
@@ -62,11 +78,11 @@ on_connect_complete(uv_work_t* req, int status) {
 	r->open_cb(r->err, r->context, r->udata);
 
 	if (r->ip) {
-		free(r->ip);
+		free_strdup(r->ip);
 	}
 
 	if (r->err) {
-		free(r->err);
+		free_strdup(r->err);
 	}
 
 	my_free(r);
@@ -82,7 +98,7 @@ redis_wrapper::connect(char* ip, int port,
 	struct connect_req* r = (struct connect_req*)my_malloc(sizeof(struct connect_req));
 	memset(r, 0, sizeof(struct connect_req));
 
-	r->ip = strdup(ip);
+	r->ip = my_strdup(ip);
 	r->port = port;
 
 	r->open_cb = open_cb;
@@ -143,7 +159,7 @@ query_work(uv_work_t* req) {
 	uv_mutex_lock(&my_conn->lock);
 	redisReply* replay = (redisReply*)redisCommand(rc, r->cmd);
 	if (replay->type == REDIS_REPLY_ERROR) {
-		r->err = strdup(replay->str);
+		r->err = my_strdup(replay->str);
 		r->result = NULL;
 		freeReplyObject(replay);
 	}
@@ -160,7 +176,7 @@ on_query_complete(uv_work_t* req, int status) {
 	r->query_cb(r->err, r->result, r->udata);
 
 	if (r->cmd) {
-		free(r->cmd);
+		free_strdup(r->cmd);
 	}
 
 	if (r->result) {
@@ -168,7 +184,7 @@ on_query_complete(uv_work_t* req, int status) {
 	}
 
 	if (r->err) {
-		free(r->err);
+		free_strdup(r->err);
 	}
 
 	my_free(r);
@@ -190,7 +206,7 @@ redis_wrapper::query(void* context,
 	query_req* r = (query_req*)my_malloc(sizeof(query_req));
 	memset(r, 0, sizeof(query_req));
 	r->context = context;
-	r->cmd = strdup(cmd);
+	r->cmd = my_strdup(cmd);
 	r->query_cb = query_cb;
 	r->udata = udata;
 
