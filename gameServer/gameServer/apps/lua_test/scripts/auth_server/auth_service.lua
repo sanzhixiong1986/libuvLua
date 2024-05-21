@@ -1,5 +1,6 @@
 -- {stype, ctype, utag, body}
 function on_auth_recv_cmd(s, msg)
+	print(msg[1], msg[2], msg[3])
 end
 
 function on_auth_session_disconnect(s) 
