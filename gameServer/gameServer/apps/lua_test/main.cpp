@@ -25,7 +25,7 @@ int main(int argc, char** argv) {
 	if (argc != 3) { // ≤‚ ‘
 		std::string search_path = "C:/work/c/libuvLua/gameServer/gameServer/apps/lua_test/scripts/";
 		lua_wrapper::add_search_path(search_path);
-		std::string lua_file = search_path + "main.lua";
+		std::string lua_file = search_path + "gateway/main.lua";
 		lua_wrapper::do_file(lua_file);
 		// end 
 	}

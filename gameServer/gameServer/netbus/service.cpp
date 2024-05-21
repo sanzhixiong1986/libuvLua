@@ -7,20 +7,21 @@
 
 #include "service.h"
 
-/// <summary>
-/// 获得用户收到的数据
-/// </summary>
-/// <param name="s">客户端的索引</param>
-/// <param name="msg">客户端获得的消息</param>
-/// <returns>是否获取成功</returns>
-bool service::on_session_recv_cmd(session* s, struct cmd_msg* msg) {
+service::service() {
+	this->using_raw_cmd = false;
+}
+// bool if return false, close socket
+bool
+service::on_session_recv_cmd(session* s, struct cmd_msg* msg) {
 	return false;
 }
 
-/// <summary>
-/// 消除客户端的相关操作
-/// </summary>
-/// <param name="s"></param>
-void service::on_session_disconnect(session* s) {
+void
+service::on_session_disconnect(session* s) {
 
+}
+
+bool
+service::on_session_recv_raw_cmd(session* s, struct raw_cmd* raw) {
+	return false;
 }
