@@ -201,5 +201,5 @@ void uv_session::send_msg(struct cmd_msg* msg) {
 
 void
 uv_session::send_raw_cmd(struct raw_cmd* raw) {
-	this->send_data(raw->raw_cmd, raw->raw_len);
+	this->send_data(raw->raw_data, raw->raw_len);
 }

@@ -42,7 +42,6 @@ lua_failed:
 static int
 lua_proto_type(lua_State* tolua_S) {
 	lua_pushinteger(tolua_S, proto_man::proto_type());
-lua_failed:
 	return 1;
 }
 
@@ -119,7 +118,7 @@ lua_raw_set_utag(lua_State* tolua_S) {
 	raw->utag = utag;
 	// 修改我们的body内存;
 
-	unsigned char* utag_ptr = raw->raw_cmd + 4;
+	unsigned char* utag_ptr = raw->raw_data + 4;
 	utag_ptr[0] = (utag & 0x000000FF);
 	utag_ptr[1] = ((utag & 0x0000FF00) >> 8);
 	utag_ptr[2] = ((utag & 0x00FF0000) >> 16);
@@ -147,4 +146,3 @@ register_raw_cmd_export(lua_State* tolua_S) {
 
 	return 0;
 }
-

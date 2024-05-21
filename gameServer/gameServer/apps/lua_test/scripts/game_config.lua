@@ -7,6 +7,7 @@ remote_servers[Stype.Auth] = {
 	stype = Stype.Auth,
 	ip = "127.0.0.1",
 	port = 8000,
+	desic = "Auth server",
 }
 
 --[[
@@ -14,6 +15,7 @@ remote_servers[Stype.System] = {
 	stype = Stype.System,
 	ip = "127.0.0.1",
 	port = 8001,
+	desic = "System server",
 }
 ]]
 

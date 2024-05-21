@@ -23,7 +23,7 @@ struct raw_cmd {
 	int ctype;
 	unsigned int utag;
 
-	unsigned char* raw_cmd;
+	unsigned char* raw_data;
 	int raw_len;
 };
 
