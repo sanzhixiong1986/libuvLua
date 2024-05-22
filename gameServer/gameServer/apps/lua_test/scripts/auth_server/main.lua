@@ -1,6 +1,7 @@
 --初始化日志模块
 Logger.init("logger/auth_server/", "auth", true)
 --end
+print("执行auth main.lua操作")
 
 -- 初始化协议模块
 local proto_type = {

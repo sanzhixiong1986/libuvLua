@@ -18,6 +18,7 @@ end
 --end
 
 local game_config = require("game_config")
+print(game_config)
 -- ¿ªÆôÍø¹Ø¶Ë¿Ú¼àÌý
 Netbus.tcp_listen(game_config.gateway_tcp_port)
 print("Tcp server listen At "..game_config.gateway_tcp_port)
